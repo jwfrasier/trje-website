@@ -1,0 +1,8 @@
+/* ─── RECENT EPISODES STAGGER REVEAL (GSAP + ScrollTrigger). ───
+   Initial-state hiding is gated by .has-anim on <html> so visitors with
+   prefers-reduced-motion (or no JS) see the final state immediately. */
+.has-anim .recent-item.recent-anim {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  will-change: opacity, transform;
+}

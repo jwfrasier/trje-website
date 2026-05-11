@@ -1,0 +1,457 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/anim-home-extras.css";
+import episodesData from "../data/episodes.json";
+import { SITE } from "../lib/site";
+
+const youtubeChannelUrl = episodesData.channelUrl;
+
+// Filter out Shorts; keep full episodes.
+const fullEpisodes = episodesData.episodes.filter((e) => !/\#shorts\b/i.test(e.title || ""));
+
+const latest = fullEpisodes[0];
+const recent = fullEpisodes.slice(1, 5);
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
+
+function thumb(id, quality = "hqdefault") {
+  return `https://i.ytimg.com/vi/${id}/${quality}.jpg`;
+}
+
+const HOSTS = [
+  {
+    name: "Chad Beck",
+    role: "Host",
+    photo: "/team/chad.webp",
+    bio: "Host and receiver of the TRJE mission: leading believers, new and seasoned, to greater spiritual growth by putting the God-given testimony of believers on display.",
+  },
+  {
+    name: "Chilo Bustillo",
+    role: "Co-host, Board Member",
+    photo: "/team/chilo.webp",
+    bio: "Co-host of the We Are Second podcast and TRJE board member. Brings wisdom and encouragement, keeping the ministry focused on the mission.",
+  },
+];
+
+const PLATFORMS = [
+  { name: "YouTube",        url: "https://www.youtube.com/@therealjesusexperience" },
+  { name: "Spotify",        url: "" },
+  { name: "Apple Podcasts", url: "" },
+  { name: "Amazon Music",   url: "" },
+  { name: "Instagram",      url: "https://www.instagram.com/therealjesusexperience" },
+  { name: "Facebook",       url: "https://www.facebook.com/therealjesusexperience" },
+  { name: "TikTok",         url: "https://www.tiktok.com/@therealjesusexperience" },
+  { name: "Rumble",         url: "https://rumble.com/c/therealjesusexperience" },
+  { name: "Threads",        url: "https://www.threads.net/@therealjesusexperience" },
+  { name: "X",              url: "https://x.com/trjepodcast" },
+];
+
+const hasEpisode = Boolean(latest?.id);
+const embedSrc = hasEpisode
+  ? `https://www.youtube-nocookie.com/embed/${latest.id}?rel=0&modestbranding=1`
+  : "";
+const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "";
+---
+
+<Layout
+  title="The Real Jesus Experience: Conversations for the long road of faith"
+  description="A 501(c)(3) nonprofit ministry and podcast. Honest, unhurried conversations for new and seasoned believers who have hit the wall."
+  ogTitle="The Real Jesus Experience"
+  ogDescription="Conversations for the long road of faith. A podcast for new and seasoned believers who have hit the wall."
+  ogUrl="https://therealjesusexperience.com/"
+  canonicalUrl="https://therealjesusexperience.com/"
+  activeRoute="home"
+>
+  <!-- ── HERO (drenched dark) ── -->
+  <section class="hero" aria-labelledby="hero-tagline">
+    <div class="wide hero-inner">
+      <img
+        src="/brand/trje-wordmark.png"
+        alt="The Real Jesus Experience"
+        class="hero-wordmark hero-anim hero-anim-wordmark"
+        data-hero="wordmark"
+        width="1500"
+        height="288"
+      />
+
+      <h1
+        id="hero-tagline"
+        class="display hero-tagline hero-anim hero-anim-up"
+        data-hero="tagline"
+      >
+        Conversations for the long road of faith.
+      </h1>
+      <p
+        class="prose hero-anim hero-anim-up"
+        data-hero="prose"
+        style="max-width: 36rem; color: var(--color-ink-on-dark);"
+      >
+        A podcast for new and seasoned believers who have hit the wall.
+        Honest, unhurried, recorded in the studio.
+      </p>
+
+      <div class="hero-meta hero-anim hero-anim-up" data-hero="meta">
+        <span class="label">Est. {SITE.established}</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label">501(c)(3) Nonprofit</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label">EIN {SITE.ein}</span>
+      </div>
+
+      <div class="hero-actions hero-anim hero-anim-up" data-hero="actions">
+        <a href="#episode" class="btn">
+          Listen <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#mission" class="btn-ghost-dark">
+          What we do
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MISSION (ivory) ── -->
+  <section class="mission" id="mission" aria-labelledby="mission-label">
+    <div class="wide mission-grid">
+      <div class="mission-label">
+        <p class="label label-red" id="mission-label">What we do</p>
+      </div>
+      <div class="mission-prose">
+        <p>
+          The Real Jesus Experience is a 501(c)(3) nonprofit ministry and podcast.
+          We make honest, unhurried conversations about the Christian life: what
+          it asks of us, what we lose along the way, and what we find when we keep
+          walking.
+        </p>
+        <p>
+          The podcast is for people who have hit <em class="term">the wall</em>.
+          New believers looking for their footing. Longtime believers who have run
+          out of the language they started with. Anyone who has noticed that easy
+          answers stop working somewhere around year seven.
+        </p>
+        <p>
+          We do not perform certainty. We do not market faith. We sit with real
+          questions, in a real studio, and we record what comes up. Some episodes
+          are arguments. Some are confessions. Some are quiet.
+        </p>
+        <p>
+          If anything we make is useful to you, we are glad. You can listen on
+          every platform we know how to reach. You can write to us. And, if you
+          want to, you can help keep the studio open.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOSTS (drenched dark) ── -->
+  <section class="hosts" id="hosts" aria-labelledby="hosts-heading">
+    <div class="wide">
+      <div class="hosts-head">
+        <p class="label label-red" id="hosts-heading">The team</p>
+        <h2 class="headline" style="max-width: 22ch;">
+          The voices in the studio.
+        </h2>
+        <a
+          href="/about#team"
+          class="episode-shownotes"
+          style="color: var(--color-ink-on-dark); border-color: var(--color-rule-on-dark); margin-top: var(--space-3); justify-self: start;"
+        >
+          Meet the team <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="hosts-inner">
+        {HOSTS.map((host) => (
+          <article class="host">
+            {host.photo ? (
+              <div class="host-portrait host-portrait-photo">
+                <img src={host.photo} alt={`${host.name}, host of The Real Jesus Experience`} loading="lazy" width="1000" height="1000" />
+              </div>
+            ) : (
+              <div class="host-portrait" aria-hidden="true">
+                <span class="label">Portrait forthcoming</span>
+              </div>
+            )}
+            <div>
+              <div class="host-name">
+                <h3 class="title">{host.name}</h3>
+                <span class="label label-red">{host.role}</span>
+              </div>
+              <p class="host-bio prose">{host.bio}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LATEST EPISODE (ivory) ── -->
+  <section class="episode-section" id="episode" aria-labelledby="episode-heading">
+    <div class="full">
+      <header class="episode-head">
+        <p class="label label-red" id="episode-heading">Latest episode</p>
+        {hasEpisode ? (
+          <>
+            <h2 class="headline">{latest.title}</h2>
+            <div class="label meta">
+              <span>{fmtDate(latest.published)}</span>
+              <span class="meta-dot" aria-hidden="true"></span>
+              <a
+                href={watchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: inherit; text-decoration: none; border-bottom: 1px solid var(--color-rule); padding-bottom: 2px;"
+              >
+                Watch on YouTube
+              </a>
+            </div>
+          </>
+        ) : (
+          <h2 class="headline">A new episode is on the way.</h2>
+        )}
+      </header>
+
+      {hasEpisode ? (
+        <>
+          <div class="episode-frame" id="episode-frame">
+            <iframe
+              src={embedSrc}
+              title={`Watch: ${latest.title}`}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+            <div class="episode-fallback">
+              <a href={watchUrl} target="_blank" rel="noopener noreferrer">
+                Watch on YouTube <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          {latest.description && (
+            <p class="episode-description prose">
+              {latest.description.length > 320
+                ? latest.description.slice(0, 320).trim() + "…"
+                : latest.description}
+            </p>
+          )}
+        </>
+      ) : (
+        <div class="episode-empty">
+          <p class="prose">
+            We are between episodes. The back catalog lives on YouTube, and
+            another conversation is on the way.
+          </p>
+          <a
+            class="episode-shownotes"
+            href={youtubeChannelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Browse the back catalog <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ── RECENT EPISODES (ivory) ── -->
+  {recent.length > 0 && (
+    <section class="recent" id="recent" aria-labelledby="recent-heading">
+      <div class="full">
+        <div class="recent-head">
+          <p class="label label-red" id="recent-heading">Recent episodes</p>
+          <a
+            href={youtubeChannelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="recent-all"
+          >
+            All episodes on YouTube <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <ul class="recent-list">
+          {recent.map((ep) => (
+            <li class="recent-item recent-anim">
+              <a
+                href={`https://www.youtube.com/watch?v=${ep.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="recent-link"
+              >
+                <div class="recent-thumb-wrap">
+                  <img
+                    src={thumb(ep.id)}
+                    alt=""
+                    class="recent-thumb"
+                    loading="lazy"
+                    width="480"
+                    height="360"
+                  />
+                  <span class="recent-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                  </span>
+                </div>
+                <div class="recent-meta-row">
+                  <p class="recent-title">{ep.title}</p>
+                  <p class="label recent-date">{fmtDate(ep.published)}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- ── PLATFORMS (drenched dark) ── -->
+  <section class="platforms" id="platforms" aria-labelledby="platforms-heading">
+    <div class="wide">
+      <div class="platforms-head">
+        <p class="label label-red" id="platforms-heading">Listen anywhere</p>
+        <h2 class="headline">
+          Wherever you already listen.
+        </h2>
+      </div>
+      <ul class="platforms-grid">
+        {PLATFORMS.map((p) => (
+          <li>
+            {p.url ? (
+              <a href={p.url} target="_blank" rel="noopener noreferrer">
+                <span>{p.name}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            ) : (
+              <span class="platform-pending" aria-label={`${p.name} (coming soon)`}>
+                <span>{p.name}</span>
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SUPPORT (ivory) ── -->
+  <section class="support" id="support" aria-labelledby="support-heading">
+    <div class="wide support-inner">
+      <p class="label label-red" id="support-heading">Support the work</p>
+      <h2 class="display support-headline">
+        Help keep the studio open.
+      </h2>
+      <p class="prose support-body">
+        TRJE is a 501(c)(3) nonprofit. Listener support funds the studio, the
+        editing, and the ongoing search for honest conversations about faith.
+        Every contribution is tax-deductible in the U.S.
+      </p>
+      <a href={SITE.donateUrl} class="btn" rel="noopener">
+        Support the work <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="support-trust">
+        EIN {SITE.ein}<span class="dot" aria-hidden="true">·</span>Tax-deductible in the U.S.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT (drenched dark) ── -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wide contact-inner">
+      <p class="label label-red" id="contact-heading">Write to us</p>
+      <p class="prose" style="max-width: 36rem; color: var(--color-ink-on-dark);">
+        Questions, prayer requests, or a story you want to share. We read
+        everything.
+      </p>
+      <a class="contact-email" href={`mailto:${SITE.contactEmail}`}>
+        {SITE.contactEmail}
+      </a>
+      <ul class="contact-socials" aria-label="Social channels">
+        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // Hero entrance choreography. Single signature moment, ~900ms total.
+    // Respects prefers-reduced-motion (the .has-anim class is never added when reduced).
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const root = document.documentElement;
+    if (!root.classList.contains("has-anim")) {
+      // Reduced motion or JS bailed in head; nothing to animate.
+    } else {
+      const wordmark = document.querySelector('[data-hero="wordmark"]');
+      const tagline = document.querySelector('[data-hero="tagline"]');
+      const prose = document.querySelector('[data-hero="prose"]');
+      const meta = document.querySelector('[data-hero="meta"]');
+      const actions = document.querySelector('[data-hero="actions"]');
+
+      const targets = [wordmark, tagline, prose, meta, actions].filter(Boolean);
+      const ease = "expo.out";
+
+      // Wait for the wordmark image to decode so the entrance starts from a real frame, not a flash.
+      const ready = wordmark && wordmark.complete
+        ? Promise.resolve()
+        : new Promise((r) => {
+            if (!wordmark) return r();
+            wordmark.addEventListener("load", r, { once: true });
+            wordmark.addEventListener("error", r, { once: true });
+            setTimeout(r, 800);
+          });
+
+      ready.then(() => {
+        const tl = gsap.timeline({
+          defaults: { ease, duration: 0.7 },
+          onComplete: () => {
+            targets.forEach((el) => el && (el.style.willChange = "auto"));
+          },
+        });
+
+        tl.to(wordmark, { opacity: 1, y: 0, scale: 1, duration: 0.95 })
+          .to(tagline, { opacity: 1, y: 0, duration: 0.75 }, "-=0.6")
+          .to(prose, { opacity: 1, y: 0, duration: 0.7 }, "-=0.55")
+          .to(meta, { opacity: 1, y: 0, duration: 0.6 }, "-=0.5")
+          .to(actions, { opacity: 1, y: 0, duration: 0.6 }, "-=0.5");
+      });
+
+      // ── RECENT EPISODES stagger reveal. Fires once when list scrolls in. ──
+      const recentList = document.querySelector(".recent-list");
+      const recentItems = recentList
+        ? recentList.querySelectorAll(".recent-anim")
+        : [];
+
+      if (recentList && recentItems.length) {
+        ScrollTrigger.create({
+          trigger: recentList,
+          // Fire when the top of the list reaches 80% down the viewport — i.e.
+          // roughly when the first card is well in view. This is generous
+          // enough that on tall desktop viewports (where the first card may
+          // already be above the fold on load) the stagger fires immediately
+          // rather than waiting for a scroll that won't come.
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            gsap.to(recentItems, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease: "expo.out",
+              stagger: 0.08,
+              onComplete: () => {
+                recentItems.forEach((el) => (el.style.willChange = "auto"));
+              },
+            });
+          },
+        });
+      }
+    }
+  </script>
+</Layout>

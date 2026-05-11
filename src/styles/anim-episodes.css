@@ -1,0 +1,17 @@
+/* Episodes page entrance choreography. Gated by .has-anim on <html>.
+   When reduced motion is preferred, .has-anim is never added, so these
+   initial-state rules don't apply and everything renders in final state. */
+
+.has-anim .ep-hero-anim {
+  opacity: 0;
+  will-change: opacity, transform;
+  transform: translate3d(0, 14px, 0);
+}
+
+.has-anim .ep-card-anim {
+  opacity: 0;
+  will-change: opacity, transform;
+  /* Slightly shorter distance because the first 4 thumbs are eager-loaded
+     and a long reveal would feel disconnected from the already-painted image. */
+  transform: translate3d(0, 12px, 0);
+}

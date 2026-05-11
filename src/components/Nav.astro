@@ -1,0 +1,44 @@
+---
+import { SITE } from "../lib/site";
+
+interface Props {
+  activeRoute?: "home" | "episodes" | "about" | "contact" | null;
+}
+
+const { activeRoute = null } = Astro.props;
+---
+
+<header class="nav" id="site-nav">
+  <div class="wide nav-inner">
+    <a href="/" class="wordmark-link" aria-label="The Real Jesus Experience, home">
+      <img
+        src="/brand/trje-wordmark.png"
+        alt="The Real Jesus Experience"
+        class="wordmark-img"
+        width="1500"
+        height="288"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </a>
+
+    <nav aria-label="Primary">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        id="nav-toggle"
+      >
+        Menu
+      </button>
+
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="/episodes" {...(activeRoute === "episodes" ? { "aria-current": "page" } : {})}>Episodes</a></li>
+        <li><a href="/about" {...(activeRoute === "about" ? { "aria-current": "page" } : {})}>About</a></li>
+        <li><a href={activeRoute === "home" ? "#contact" : "/#contact"} {...(activeRoute === "contact" ? { "aria-current": "page" } : {})}>Contact</a></li>
+        <li><a href={SITE.donateUrl} class="nav-cta">Support</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

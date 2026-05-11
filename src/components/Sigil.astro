@@ -1,0 +1,22 @@
+---
+interface Props {
+  size?: number;
+  label?: string;
+  class?: string;
+}
+const { size = 14, label, class: className = "" } = Astro.props;
+---
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 16 16"
+  class={`sigil ${className}`.trim()}
+  role={label ? "img" : undefined}
+  aria-hidden={label ? undefined : "true"}
+  fill="none"
+>
+  {label && <title>{label}</title>}
+  <line x1="8" y1="1.25" x2="8" y2="14.75" stroke="currentColor" stroke-width="1" />
+  <line x1="2.5" y1="6" x2="13.5" y2="6" stroke="currentColor" stroke-width="1" />
+  <circle cx="8" cy="6" r="1.6" fill="currentColor" />
+</svg>

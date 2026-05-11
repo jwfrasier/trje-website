@@ -1,0 +1,229 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/anim-episodes.css";
+import episodesData from "../data/episodes.json";
+
+const channelUrl = episodesData.channelUrl;
+
+const isShort = (e) => /\#shorts\b/i.test(e.title || "");
+const fullEpisodes = episodesData.episodes.filter((e) => !isShort(e));
+const shorts = episodesData.episodes.filter(isShort);
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
+function fmtFetched(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+function thumb(id, quality = "hqdefault") {
+  return `https://i.ytimg.com/vi/${id}/${quality}.jpg`;
+}
+function cleanDescription(d) {
+  if (!d) return "";
+  const firstPara = d.split(/\n\s*\n/)[0] || d;
+  return firstPara.length > 220 ? firstPara.slice(0, 220).trim() + "…" : firstPara.trim();
+}
+---
+
+<Layout
+  title="Episodes: The Real Jesus Experience"
+  description="The complete recent run of The Real Jesus Experience podcast. Honest, unhurried conversations for new and seasoned believers."
+  ogTitle="Episodes: The Real Jesus Experience"
+  ogDescription="The complete recent run of TRJE."
+  ogUrl="https://therealjesusexperience.com/episodes"
+  canonicalUrl="https://therealjesusexperience.com/episodes"
+  activeRoute="episodes"
+>
+  <!-- ── HEADER (drenched dark) ── -->
+  <section class="ep-hero">
+    <div class="wide">
+      <p class="label label-red ep-hero-anim" data-ep-hero="label">The archive</p>
+      <h1 class="display ep-hero-h ep-hero-anim" data-ep-hero="h">Every recent episode.</h1>
+      <p class="prose ep-hero-sub ep-hero-anim" data-ep-hero="sub">
+        The most recent {episodesData.episodes.length} uploads from the TRJE channel. Full conversations first; shorts below.
+      </p>
+      <div class="ep-hero-meta ep-hero-anim" data-ep-hero="meta">
+        <span class="label label-on-dark-muted">
+          Updated {fmtFetched(episodesData.fetchedAt)}
+        </span>
+        <span class="dot" aria-hidden="true"></span>
+        <a
+          href={channelUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ep-hero-channel"
+        >
+          All episodes on YouTube <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FULL EPISODES (ivory) ── -->
+  <section class="ep-archive" id="full">
+    <div class="full">
+      <div class="ep-section-head">
+        <p class="label label-red">Full episodes</p>
+        <h2 class="headline">{fullEpisodes.length} conversations</h2>
+      </div>
+
+      {fullEpisodes.length > 0 ? (
+        <ul class="ep-grid">
+          {fullEpisodes.map((ep, idx) => (
+            <li class="ep-card ep-card-anim">
+              <a
+                href={`https://www.youtube.com/watch?v=${ep.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ep-card-link"
+              >
+                <div class="ep-card-thumb">
+                  <img
+                    src={thumb(ep.id)}
+                    alt=""
+                    loading={idx < 4 ? "eager" : "lazy"}
+                    width="480"
+                    height="360"
+                  />
+                  <span class="ep-card-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                      <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="ep-card-body">
+                  <p class="label ep-card-date">{fmtDate(ep.published)}</p>
+                  <h3 class="ep-card-title">{ep.title}</h3>
+                  {ep.description && (
+                    <p class="ep-card-desc">{cleanDescription(ep.description)}</p>
+                  )}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="prose">No full episodes in the current feed.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- ── SHORTS (drenched dark) ── -->
+  {shorts.length > 0 && (
+    <section class="ep-shorts" id="shorts">
+      <div class="full">
+        <div class="ep-section-head">
+          <p class="label label-red">Shorts</p>
+          <h2 class="headline">{shorts.length} short{shorts.length === 1 ? "" : "s"}</h2>
+        </div>
+        <ul class="ep-shorts-grid">
+          {shorts.map((ep) => (
+            <li class="ep-short">
+              <a
+                href={`https://www.youtube.com/watch?v=${ep.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ep-short-link"
+              >
+                <div class="ep-short-thumb">
+                  <img
+                    src={thumb(ep.id, "mqdefault")}
+                    alt=""
+                    loading="lazy"
+                    width="320"
+                    height="180"
+                  />
+                  <span class="ep-card-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                      <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="ep-short-body">
+                  <p class="label ep-card-date" style="color: var(--color-ink-on-dark-muted);">
+                    {fmtDate(ep.published)}
+                  </p>
+                  <p class="ep-short-title">{ep.title.replace(/\s*#shorts?\b/i, "").trim()}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- ── BACK CATALOG NOTE (ivory) ── -->
+  <section class="ep-catalog">
+    <div class="wide ep-catalog-inner">
+      <p class="label label-red">Older episodes</p>
+      <h2 class="headline ep-catalog-h">The deeper back catalog lives on YouTube.</h2>
+      <p class="prose">
+        YouTube's public feed surfaces only the most recent uploads. Every conversation TRJE has ever recorded is on the channel.
+      </p>
+      <a href={channelUrl} target="_blank" rel="noopener noreferrer" class="btn">
+        Open the channel <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // Episodes page choreography: hero entrance on load, card grid stagger on scroll.
+    // Respects prefers-reduced-motion (the .has-anim class is never added when reduced).
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const root = document.documentElement;
+    if (root.classList.contains("has-anim")) {
+      const ease = "expo.out";
+
+      // ── Hero entrance ──
+      const label = document.querySelector('[data-ep-hero="label"]');
+      const h = document.querySelector('[data-ep-hero="h"]');
+      const sub = document.querySelector('[data-ep-hero="sub"]');
+      const meta = document.querySelector('[data-ep-hero="meta"]');
+
+      const heroTargets = [label, h, sub, meta].filter(Boolean);
+      const tl = gsap.timeline({
+        defaults: { ease, duration: 0.7 },
+        onComplete: () => {
+          heroTargets.forEach((el) => el && (el.style.willChange = "auto"));
+        },
+      });
+      tl.to(label, { opacity: 1, y: 0, duration: 0.6 })
+        .to(h, { opacity: 1, y: 0, duration: 0.85 }, "-=0.45")
+        .to(sub, { opacity: 1, y: 0, duration: 0.7 }, "-=0.6")
+        .to(meta, { opacity: 1, y: 0, duration: 0.6 }, "-=0.5");
+
+      // ── Episode grid stagger on scroll ──
+      const grid = document.querySelector(".ep-grid");
+      if (grid) {
+        const cards = Array.from(grid.querySelectorAll(".ep-card-anim"));
+        if (cards.length) {
+          ScrollTrigger.create({
+            trigger: grid,
+            start: "top 75%",
+            once: true,
+            onEnter: () => {
+              gsap.to(cards, {
+                opacity: 1,
+                y: 0,
+                duration: 0.65,
+                ease,
+                stagger: 0.08,
+                onComplete: () => {
+                  cards.forEach((el) => (el.style.willChange = "auto"));
+                },
+              });
+            },
+          });
+        }
+      }
+    }
+  </script>
+</Layout>

@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Not found: The Real Jesus Experience"
+  description="This page wandered off. The episodes haven't."
+  ogTitle="Not found"
+  ogDescription="This page wandered off. The episodes haven't."
+  ogUrl="https://therealjesusexperience.com/404"
+  canonicalUrl="https://therealjesusexperience.com/404"
+  activeRoute={null}
+>
+  <section class="nf-hero" aria-labelledby="nf-heading">
+    <div class="wide nf-hero-inner">
+      <p class="label label-red">Page not found</p>
+      <p class="nf-stat" aria-hidden="true">404</p>
+      <h1 id="nf-heading" class="display nf-line">
+        This page wandered off. The episodes haven't.
+      </h1>
+      <div class="nf-actions">
+        <a href="/" class="btn">
+          Back to home <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/episodes" class="btn-ghost-dark">
+          Browse episodes <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf-hero {
+    background: var(--color-ink-surface);
+    color: var(--color-ink-on-dark);
+    min-height: 90svh;
+    display: grid;
+    align-content: center;
+    padding-block: var(--space-10) var(--space-9);
+    position: relative;
+    overflow: hidden;
+  }
+  .nf-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 82% 18%, oklch(58% 0.22 25 / 0.14), transparent 55%),
+      radial-gradient(circle at 8% 92%, oklch(58% 0.22 25 / 0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .nf-hero-inner { position: relative; }
+  .nf-stat {
+    font-family: var(--font-display);
+    font-size: clamp(8rem, 4rem + 22vw, 22rem);
+    line-height: 0.85;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-red);
+    margin: 0;
+    margin-block: var(--space-2) var(--space-4);
+    text-transform: uppercase;
+  }
+  .nf-line {
+    max-width: 22ch;
+    color: var(--color-ink-on-dark);
+  }
+  .nf-actions {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+</style>

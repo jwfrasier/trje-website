@@ -1,0 +1,253 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/anim-about.css";
+import { SITE } from "../lib/site";
+
+const TEAM = [
+  {
+    name: "Chad Beck",
+    role: "Host",
+    photo: "/team/chad.webp",
+    bio: "Host and receiver of The Real Jesus Experience mission, which is to lead believers, new and seasoned, to greater spiritual growth, not through anything he would do or say, but by putting the God-given testimony of believers on display to encourage others and give glory to God.",
+  },
+  {
+    name: "Chilo Bustillo",
+    role: "Co-host, Board Member",
+    photo: "/team/chilo.webp",
+    bio: "Co-host of the We Are Second podcast and a TRJE board member. Chilo provides invaluable wisdom and encouragement, keeping the ministry focused on the mission and submitting all things to the Father.",
+  },
+];
+---
+
+<Layout
+  title="About: The Real Jesus Experience"
+  description="The real Jesus experience is the realized freedom from the guilt and condemnation of sin. A 501(c)(3) ministry and podcast for the 85 percent who have hit the wall."
+  ogTitle="About The Real Jesus Experience"
+  ogDescription="The realized freedom from the guilt and condemnation of sin. A ministry and podcast for the 85 percent who have hit the wall."
+  ogUrl="https://therealjesusexperience.com/about"
+  canonicalUrl="https://therealjesusexperience.com/about"
+  activeRoute="about"
+>
+  <!-- ── 85% HERO (drenched dark) ── -->
+  <section class="about-hero" aria-labelledby="hero-stat">
+    <div class="wide about-hero-inner">
+      <p class="label label-red">The question that built TRJE</p>
+      <p class="about-stat" aria-hidden="true" data-about="stat"><span class="about-stat-num" data-about="stat-num">85</span><span class="about-stat-mark">%</span></p>
+      <h1 id="hero-stat" class="display about-hero-line">
+        Eighty-five percent of Christians do not get through the wall.
+      </h1>
+      <p class="prose about-hero-attr">
+        <span class="label-on-dark-muted">Peter Scazzero,</span>
+        <em class="cite">Emotionally Healthy Spirituality</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── THE REAL JESUS EXPERIENCE (ivory) ── -->
+  <section class="about-define" aria-labelledby="define-heading">
+    <div class="wide about-define-grid">
+      <div class="about-define-label">
+        <p class="label label-red" id="define-heading">What we mean</p>
+      </div>
+      <div class="about-define-body">
+        <h2 class="headline about-define-h">
+          The real Jesus experience.
+        </h2>
+        <div class="prose about-define-prose">
+          <p>
+            The real Jesus experience is the realized freedom from the guilt and
+            condemnation of sin. It is the removing of a veil that opens up a whole
+            new and beautiful life with Christ.
+          </p>
+          <p>
+            When we are having a real Jesus experience, faith is no longer believing
+            what is not seen, but knowing the undeniable truth of what you have
+            lived through.
+          </p>
+        </div>
+
+        <blockquote class="pullquote" data-about="pullquote">
+          <p class="pullquote-anim" data-about="pullquote-text">
+            It has rightly been said that perhaps 85 percent of Christians do not
+            get through the wall.
+          </p>
+          <footer class="pullquote-attr pullquote-anim" data-about="pullquote-attr">
+            <span>Peter Scazzero</span>
+            <span class="dot" aria-hidden="true">·</span>
+            <em>Emotionally Healthy Spirituality</em>
+          </footer>
+        </blockquote>
+
+        <div class="prose about-define-prose">
+          <p>
+            Let that sink in. If you have been through <em class="term">the wall</em>,
+            can you believe that possibly only 15 percent of Christians know Jesus
+            the way you do now? You know the radical change it made in your life.
+            Imagine if that number was flipped, and 85 percent of Christians were
+            walking out the real Jesus experience.
+          </p>
+          <p>
+            What could our churches look like? God only knows, but we desperately
+            want to find out.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEAM (drenched dark) ── -->
+  <section class="about-team" id="team" aria-labelledby="team-heading">
+    <div class="wide">
+      <div class="about-team-head">
+        <p class="label label-red" id="team-heading">Meet the team</p>
+        <h2 class="display about-team-h">
+          The voices in the studio.
+        </h2>
+      </div>
+
+      <div class="about-team-grid">
+        {TEAM.map((member) => (
+          <article class="team-member">
+            {member.photo ? (
+              <div class="team-portrait team-portrait-photo">
+                <img src={member.photo} alt={`${member.name}, TRJE`} loading="lazy" width="1000" height="1000" />
+              </div>
+            ) : (
+              <div class="team-portrait" aria-hidden="true">
+                <span class="label">Portrait forthcoming</span>
+              </div>
+            )}
+            <div>
+              <div class="team-name-row">
+                <h3 class="title team-name">{member.name}</h3>
+                <span class="label label-red">{member.role}</span>
+              </div>
+              <p class="team-bio prose">{member.bio}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORG / 501(c)(3) (ivory) ── -->
+  <section class="about-org" aria-labelledby="org-heading">
+    <div class="wide about-org-grid">
+      <div>
+        <p class="label label-red" id="org-heading">The organization</p>
+        <h2 class="headline about-org-h">Real Jesus Experience Inc.</h2>
+      </div>
+      <div class="prose about-org-prose">
+        <p>
+          The Real Jesus Experience is a 501(c)(3) nonprofit organization. All
+          donations are tax-deductible to the extent permitted by law.
+        </p>
+        <dl class="org-facts">
+          <div class="org-fact">
+            <dt class="label">EIN</dt>
+            <dd>{SITE.ein}</dd>
+          </div>
+          <div class="org-fact">
+            <dt class="label">Status</dt>
+            <dd>501(c)(3) Nonprofit</dd>
+          </div>
+          <div class="org-fact">
+            <dt class="label">Year founded</dt>
+            <dd>2024</dd>
+          </div>
+        </dl>
+        <a href={SITE.donateUrl} class="btn" rel="noopener">
+          Support the work <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT (drenched dark) ── -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wide contact-inner">
+      <p class="label label-red" id="contact-heading">Write to us</p>
+      <p class="prose" style="max-width: 38rem; color: var(--color-ink-on-dark);">
+        Questions about faith, the work, the wall. Prayer requests, stories
+        you want to share. We read everything.
+      </p>
+      <a class="contact-email" href={`mailto:${SITE.contactEmail}`}>
+        {SITE.contactEmail}
+      </a>
+      <ul class="contact-socials" aria-label="Social channels">
+        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // About page scroll-triggered animations.
+    // Both fire once. Reduced motion is handled by the head inline script
+    // (which never adds .has-anim, so the pullquote stays at its CSS resting
+    // state and the stat number remains as the static "85" in markup).
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const root = document.documentElement;
+    if (root.classList.contains("has-anim")) {
+      const ease = "expo.out";
+
+      // ── 1. 85% count-up ──────────────────────────────────────────────
+      const statNum = document.querySelector('[data-about="stat-num"]');
+      if (statNum) {
+        // Start at 0 so there is something to count up from.
+        statNum.textContent = "0";
+        const counter = { value: 0 };
+        ScrollTrigger.create({
+          trigger: statNum,
+          start: "top 60%",
+          once: true,
+          onEnter: () => {
+            statNum.style.willChange = "contents";
+            gsap.to(counter, {
+              value: 85,
+              duration: 1.2,
+              ease,
+              onUpdate: () => {
+                statNum.textContent = String(Math.round(counter.value));
+              },
+              onComplete: () => {
+                statNum.textContent = "85";
+                statNum.style.willChange = "auto";
+              },
+            });
+          },
+        });
+      }
+
+      // ── 2. Pullquote reveal ──────────────────────────────────────────
+      const pqText = document.querySelector('[data-about="pullquote-text"]');
+      const pqAttr = document.querySelector('[data-about="pullquote-attr"]');
+      const pqTargets = [pqText, pqAttr].filter(Boolean);
+      const pqTrigger = document.querySelector('[data-about="pullquote"]');
+      if (pqTrigger && pqTargets.length) {
+        ScrollTrigger.create({
+          trigger: pqTrigger,
+          start: "top 70%",
+          once: true,
+          onEnter: () => {
+            gsap.to(pqTargets, {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease,
+              stagger: 0.12,
+              onComplete: () => {
+                pqTargets.forEach((el) => (el.style.willChange = "auto"));
+              },
+            });
+          },
+        });
+      }
+    }
+  </script>
+</Layout>

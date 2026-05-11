@@ -1,0 +1,11 @@
+/* ─── ABOUT PAGE ANIMATIONS. FOUC-prevented via .has-anim on <html>. ─── */
+
+/* Pullquote reveal: inner <p> and <footer> start hidden, slightly down. */
+.has-anim .pullquote-anim {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  will-change: opacity, transform;
+}
+
+/* The stat number itself does not need an initial hidden state — the
+   count-up replaces its text content. The trailing "%" stays static. */

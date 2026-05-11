@@ -1,0 +1,18 @@
+---
+import { SITE } from "../lib/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wide footer-inner">
+    <span>&copy; {year} The Real Jesus Experience</span>
+    <div class="footer-meta">
+      <span>501(c)(3) Nonprofit</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>EIN {SITE.ein}</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <a href={SITE.donateUrl}>Support</a>
+    </div>
+  </div>
+</footer>
