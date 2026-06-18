@@ -1,0 +1,17 @@
+/* ─── THE WALL PAGE ANIMATIONS. FOUC-prevented via .has-anim on <html>. ─── */
+
+/* Hero + intro + invitation copy: start hidden, slightly down. Resting state
+   (no .has-anim, e.g. reduced motion or JS-off) leaves everything visible. */
+.has-anim .wall-anim {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  will-change: opacity, transform;
+}
+
+/* Each stage along the path reveals as it scrolls into view. The giant
+   stage number drifts a touch further for a layered feel. */
+.has-anim .wall-stage {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  will-change: opacity, transform;
+}

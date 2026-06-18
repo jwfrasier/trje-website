@@ -1,0 +1,291 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/the-wall.css";
+import "../styles/anim-the-wall.css";
+import { SITE } from "../lib/site";
+
+// The six stages of the Critical Journey (Hagberg & Guelich), popularized by
+// Peter Scazzero. Stage 4 — the Wall — is rendered separately as the dramatic
+// centerpiece, so it is not part of this list.
+const STAGES_BEFORE = [
+  {
+    num: "01",
+    kicker: "It begins",
+    title: "Awareness of God",
+    desc: "The first encounter. You meet Jesus, and everything is new. There is wonder, relief, a sense that you have finally come home. Faith feels alive and uncomplicated.",
+  },
+  {
+    num: "02",
+    kicker: "Learning",
+    title: "Discipleship",
+    desc: "You learn the language and the practices — Scripture, prayer, community, belonging. You find your people and follow the patterns. Faith feels like solid ground under your feet.",
+  },
+  {
+    num: "03",
+    kicker: "Doing",
+    title: "The Productive Life",
+    desc: "Now you serve. You build, you give, you lead, you bear fruit. Much of it is genuinely good — but slowly, quietly, your sense of God can start to ride on how much you are doing for Him.",
+  },
+];
+
+const STAGES_AFTER = [
+  {
+    num: "05",
+    kicker: "Coming out",
+    title: "The Journey Outward",
+    desc: "On the far side, faith is rebuilt on something truer than performance. You serve again — but now out of love and rest rather than fear and proving. The fruit is quieter, deeper, and it lasts.",
+  },
+  {
+    num: "06",
+    kicker: "Home",
+    title: "The Life of Love",
+    desc: "Union with God becomes the center of everything. Being matters more than doing. Love — for God and for people — becomes the measure of a life, and it overflows without striving.",
+  },
+];
+---
+
+<Layout
+  title="The Wall: The Real Jesus Experience"
+  description="Lost in your faith? Like it stopped working? You may have hit the wall — a normal, God-designed part of the believer's journey. A walk through the six stages of faith and the hard, holy middle."
+  ogTitle="The Wall — The Real Jesus Experience"
+  ogDescription="The six stages of a believer's journey, and the hard, holy middle called the wall. You're not off the path — you're on it."
+  ogUrl="https://therealjesusexperience.com/the-wall"
+  canonicalUrl="https://therealjesusexperience.com/the-wall"
+  activeRoute="wall"
+>
+  <!-- ── HERO (drenched dark) ── -->
+  <section class="wall-hero" aria-labelledby="wall-hero-h">
+    <div class="wide wall-hero-inner">
+      <p class="label label-red">The critical journey</p>
+      <h1 id="wall-hero-h" class="display wall-hero-line wall-anim" data-wall="anim">
+        Every faith hits a wall.
+      </h1>
+      <p class="wall-hero-sub wall-anim" data-wall="anim">
+        Confused? Feel like it stopped working? Like God went quiet and no one
+        will say it out loud? <em>You are not off the path — you are on it.</em>
+        The wall is a real, named stage of a maturing faith.
+      </p>
+      <p class="prose wall-hero-attr wall-anim" data-wall="anim">
+        <span class="label-on-dark-muted">After Janet Hagberg &amp; Robert Guelich,</span>
+        <em class="cite">The Critical Journey</em>
+        <span class="label-on-dark-muted"> — as taught by Peter Scazzero.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── INTRO / faith has a course (ivory) ── -->
+  <section class="wall-intro" aria-labelledby="wall-intro-h">
+    <div class="wide wall-intro-grid">
+      <div class="wall-intro-label">
+        <p class="label label-red" id="wall-intro-h">Faith has a course</p>
+      </div>
+      <div class="wall-intro-body">
+        <h2 class="headline wall-intro-h">It was never meant to be a flat line.</h2>
+        <div class="wall-intro-prose wall-anim" data-wall="anim">
+          <p>
+            A lot of believers assume the Christian life should be a steady climb
+            — start strong, learn more, do more, feel closer to God every year.
+            So when the ground gives way, when prayer feels like it bounces off
+            the ceiling, the first thought is: <em class="term">something is wrong with me</em>.
+          </p>
+          <p>
+            But maturing faith has a shape. It moves through stages — and there
+            is a hard middle that nearly everyone reaches and most are never
+            warned about. It is not a detour. It is the road. Here is the whole
+            of it, so you can find where you are standing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE PATH: stages 1–3, before the wall (ivory) ── -->
+  <section class="wall-path" aria-labelledby="wall-before-h">
+    <div class="wide">
+      <div class="wall-path-head">
+        <p class="label label-red" id="wall-before-h">Before the wall</p>
+        <h2 class="headline">The climb.</h2>
+      </div>
+      <div class="wall-stages">
+        {STAGES_BEFORE.map((stage) => (
+          <article class="wall-stage" data-wall="stage">
+            <p class="wall-stage-num" aria-hidden="true">{stage.num}</p>
+            <div class="wall-stage-body">
+              <span class="label label-red wall-stage-kicker">{stage.kicker}</span>
+              <h3 class="title wall-stage-title">{stage.title}</h3>
+              <p class="wall-stage-desc">{stage.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE WALL — stage 4, dramatic full-bleed dark break ── -->
+  <section class="wall-break" aria-labelledby="wall-break-h">
+    <div class="wide wall-break-inner">
+      <p class="label label-red">Stage four</p>
+      <p class="wall-break-num" aria-hidden="true">04</p>
+      <h2 id="wall-break-h" class="display wall-break-title">The wall.</h2>
+      <p class="wall-break-lead">
+        Suffering, loss, doubt, a season that does not lift. The faith that
+        carried you suddenly does not seem to work — and you cannot tell where
+        God is, what He is doing, or when it will end.
+      </p>
+      <div class="wall-break-prose">
+        <p>
+          It can arrive through a crisis or just creep in: a quiet emptiness
+          underneath a busy, productive Christian life. The old answers feel
+          thin. The practices that used to fill you up run dry. You feel
+          <em class="term">lost</em>, and worse, you feel alone in being lost.
+        </p>
+        <p>
+          Hear this clearly: the wall is not a sign your faith failed. It is a
+          stage of faith. It is the place God uses to take you past believing
+          the right things into truly knowing Him — to transform you from the
+          inside out. It is meant to be here.
+        </p>
+      </div>
+
+      <div class="wall-fork">
+        <div class="wall-fork-item">
+          <span class="label label-on-dark-muted wall-fork-label">If you run from it</span>
+          <p class="wall-fork-text">
+            You go back to doing and performing, stay busy, and quietly settle
+            for a faith that stalls. This is where most turn back — and why so
+            few are ever told what they were really facing.
+          </p>
+        </div>
+        <div class="wall-fork-item wall-fork-item--lean">
+          <span class="label label-red wall-fork-label">If you lean into it</span>
+          <p class="wall-fork-text">
+            You let God do the deep work — surrender, honesty, waiting in the
+            dark. It is the hardest season of the journey, and the one where He
+            does the most. Stay in it, and He does incredible things.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE PATH: stages 5–6, the other side (ivory) ── -->
+  <section class="wall-path wall-path--after" aria-labelledby="wall-after-h">
+    <div class="wide">
+      <div class="wall-path-head">
+        <p class="label label-red" id="wall-after-h">The other side</p>
+        <h2 class="headline">What comes after.</h2>
+      </div>
+      <div class="wall-stages">
+        {STAGES_AFTER.map((stage) => (
+          <article class="wall-stage" data-wall="stage">
+            <p class="wall-stage-num" aria-hidden="true">{stage.num}</p>
+            <div class="wall-stage-body">
+              <span class="label label-red wall-stage-kicker">{stage.kicker}</span>
+              <h3 class="title wall-stage-title">{stage.title}</h3>
+              <p class="wall-stage-desc">{stage.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INVITATION (drenched dark) ── -->
+  <section class="wall-invite" aria-labelledby="wall-invite-h">
+    <div class="wide wall-invite-inner">
+      <p class="label label-red">If you are here</p>
+      <h2 id="wall-invite-h" class="display wall-invite-h wall-anim" data-wall="anim">
+        Don't waste the wall.
+      </h2>
+      <p class="wall-invite-prose wall-anim" data-wall="anim">
+        It has been said that perhaps 85 percent of Christians never get through
+        the wall. We make this podcast for the ones who want to — who would
+        rather lean in than turn back. The <em class="term">real Jesus experience</em>
+        is so often on the far side of it.
+      </p>
+      <div class="wall-invite-actions wall-anim" data-wall="anim">
+        <a href="/about" class="btn">
+          Why we exist <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/episodes" class="btn-ghost-dark">
+          Listen along <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT (drenched dark) ── -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wide contact-inner">
+      <p class="label label-red" id="contact-heading">Write to us</p>
+      <p class="prose" style="max-width: 38rem; color: var(--color-ink-on-dark);">
+        Questions about faith, the work, the wall, or a story you want to
+        share. If you have a testimony, we'd love to share it on the podcast
+        to encourage others. We read everything.
+      </p>
+      <a class="contact-email" href={`mailto:${SITE.contactEmail}`}>
+        {SITE.contactEmail}
+      </a>
+      <ul class="contact-socials" aria-label="Social channels">
+        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // The Wall page scroll-triggered reveals. Mirrors the About page pattern:
+    // everything is visible at rest (CSS hidden states live behind .has-anim),
+    // so reduced motion / JS-off degrade gracefully.
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const root = document.documentElement;
+    if (root.classList.contains("has-anim")) {
+      const ease = "expo.out";
+
+      // ── 1. Generic copy blocks (hero, intro, invitation) ──────────────
+      const blocks = document.querySelectorAll<HTMLElement>('[data-wall="anim"]');
+      blocks.forEach((el) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          once: true,
+          onEnter: () => {
+            gsap.to(el, {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease,
+              onComplete: () => (el.style.willChange = "auto"),
+            });
+          },
+        });
+      });
+
+      // ── 2. Stage cards stagger in as each path block is reached ───────
+      document.querySelectorAll<HTMLElement>(".wall-stages").forEach((group) => {
+        const stages = group.querySelectorAll<HTMLElement>('[data-wall="stage"]');
+        if (!stages.length) return;
+        ScrollTrigger.create({
+          trigger: group,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            gsap.to(stages, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease,
+              stagger: 0.1,
+              onComplete: () => stages.forEach((s) => (s.style.willChange = "auto")),
+            });
+          },
+        });
+      });
+    }
+  </script>
+</Layout>
