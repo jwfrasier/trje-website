@@ -1,0 +1,16 @@
+/* ─── GIVE PAGE ANIMATIONS. FOUC-prevented via .has-anim on <html>. ─── */
+
+/* Copy blocks reveal on scroll. Resting state (no .has-anim) is fully visible,
+   so reduced-motion and JS-off both fall back gracefully. */
+.has-anim .give-anim {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  will-change: opacity, transform;
+}
+
+/* Ledger rows stagger in as the section is reached. */
+.has-anim .give-ledger-row {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+}

@@ -1,0 +1,206 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/give.css";
+import "../styles/anim-give.css";
+import { SITE } from "../lib/site";
+
+// What giving goes to: the mission and the people it reaches, not facilities.
+// Editorial ledger, not feature cards.
+const LEDGER = [
+  {
+    term: "The conversations",
+    desc: "Honest, unhurried episodes for believers new and seasoned, especially the ones who have hit the wall.",
+  },
+  {
+    term: "The testimonies",
+    desc: "Putting real, God-given testimony on display, so others are encouraged and God gets the glory.",
+  },
+  {
+    term: "Always free",
+    desc: "Keeping every episode free on every platform, so the people who need it most are never priced out.",
+  },
+  {
+    term: "The reach",
+    desc: "Getting this into the ears of the weary believer who feels alone, wherever they happen to be.",
+  },
+];
+---
+
+<Layout
+  title="Give: The Real Jesus Experience"
+  description="TRJE is a 501(c)(3) nonprofit. Your giving goes straight to the mission: honest faith conversations, real testimony, and keeping it all free for the believers who need it most."
+  ogTitle="Give — The Real Jesus Experience"
+  ogDescription="Your giving carries the mission, not a building. Give once, or walk with us monthly."
+  ogUrl="https://therealjesusexperience.com/give"
+  canonicalUrl="https://therealjesusexperience.com/give"
+>
+  <!-- ── HERO (drenched dark) — the ask ── -->
+  <section class="give-hero" aria-labelledby="give-hero-h">
+    <div class="wide give-hero-inner">
+      <p class="label label-red">Support the mission</p>
+      <h1 id="give-hero-h" class="display give-hero-line">
+        Help carry the mission.
+      </h1>
+      <p class="give-hero-sub give-anim" data-give="anim">
+        The Real Jesus Experience exists to walk with believers, new and seasoned,
+        through the climb and the wall, putting real, God-given testimony on
+        display to encourage the weary and give glory to God. Your giving is what
+        keeps that mission moving, and keeps it free for whoever needs it.
+      </p>
+      <div class="give-hero-actions give-anim" data-give="anim">
+        <a href={SITE.donateUrl} class="btn" rel="noopener" target="_blank">
+          Give now <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="give-hero-trust give-anim" data-give="anim">
+        <span>501(c)(3) nonprofit</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>Tax-deductible in the U.S.</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>EIN {SITE.ein}</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── WHERE IT GOES (ivory) ── -->
+  <section class="give-where" aria-labelledby="give-where-h">
+    <div class="wide give-where-grid">
+      <div class="give-where-intro">
+        <p class="label label-red">Where your giving goes</p>
+        <h2 class="headline give-where-h">Every gift goes straight to the mission.</h2>
+        <p class="give-where-lede give-anim" data-give="anim">
+          We are a small nonprofit, and giving does not go to a building or a
+          brand. It goes to the mission itself: the conversations, the
+          testimonies, and the people on the other end who need to hear them.
+        </p>
+      </div>
+      <dl class="give-ledger">
+        {LEDGER.map((item) => (
+          <div class="give-ledger-row">
+            <dt class="give-ledger-term">{item.term}</dt>
+            <dd class="give-ledger-desc">{item.desc}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── WHY IT MATTERS (drenched dark) ── -->
+  <section class="give-why" aria-labelledby="give-why-h">
+    <div class="wide give-why-inner">
+      <p class="label label-red">Why it matters</p>
+      <h2 id="give-why-h" class="give-why-statement give-anim" data-give="anim">
+        Most people hit the wall <em>alone</em>. Your giving means they don't have to.
+      </h2>
+      <p class="give-why-prose give-anim" data-give="anim">
+        It has been said that perhaps 85 percent of Christians never get through
+        the wall. We make this podcast for the ones who want to. Listener support
+        is what keeps it honest, keeps it free, and keeps it coming, for the new
+        believer finding their footing and the seasoned one running on empty.
+      </p>
+      <a href="/the-wall" class="give-why-link give-anim" data-give="anim">
+        What is the wall? <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── GIVE CTA (ivory) — the committed handoff ── -->
+  <section class="give-cta" aria-labelledby="give-cta-h">
+    <div class="wide give-cta-inner">
+      <p class="label label-red">Give</p>
+      <h2 id="give-cta-h" class="display give-cta-h">Give once, or walk with us monthly.</h2>
+      <p class="give-cta-prose give-anim" data-give="anim">
+        One gift helps right now. A monthly gift lets us keep showing up for the
+        people who need this. Give whatever fits where you are. It all goes to the
+        same place: the mission, and the people it reaches.
+      </p>
+      <div class="give-cta-actions give-anim" data-give="anim">
+        <a href={SITE.donateUrl} class="btn" rel="noopener" target="_blank">
+          Give to TRJE <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <span class="give-cta-note">You will be taken to our secure giving partner.</span>
+      </div>
+      <p class="give-cta-trust">
+        <span>Real Jesus Experience Inc.</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>501(c)(3)</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>EIN {SITE.ein}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>Tax-deductible in the U.S.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT (drenched dark) ── -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wide contact-inner">
+      <p class="label label-red" id="contact-heading">Write to us</p>
+      <p class="prose" style="max-width: 38rem; color: var(--color-ink-on-dark);">
+        Questions about giving, the work, or a story you want to share. If you
+        have a testimony, we'd love to share it on the podcast to encourage
+        others. We read everything.
+      </p>
+      <a class="contact-email" href={`mailto:${SITE.contactEmail}`}>
+        {SITE.contactEmail}
+      </a>
+      <ul class="contact-socials" aria-label="Social channels">
+        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // Give page scroll reveals. Same guarded pattern as About / The Wall:
+    // CSS hidden states live behind .has-anim, so reduced motion and JS-off
+    // both leave content fully visible.
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const root = document.documentElement;
+    if (root.classList.contains("has-anim")) {
+      const ease = "expo.out";
+
+      document.querySelectorAll<HTMLElement>('[data-give="anim"]').forEach((el) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          once: true,
+          onEnter: () => {
+            gsap.to(el, {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease,
+              onComplete: () => (el.style.willChange = "auto"),
+            });
+          },
+        });
+      });
+
+      const ledger = document.querySelector<HTMLElement>(".give-ledger");
+      if (ledger) {
+        const rows = ledger.querySelectorAll<HTMLElement>(".give-ledger-row");
+        ScrollTrigger.create({
+          trigger: ledger,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            gsap.to(rows, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease,
+              stagger: 0.1,
+              onComplete: () => rows.forEach((r) => (r.style.willChange = "auto")),
+            });
+          },
+        });
+      }
+    }
+  </script>
+</Layout>

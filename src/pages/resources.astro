@@ -1,0 +1,203 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/resources.css";
+import "../styles/anim-resources.css";
+import { CATEGORIES, LEVELS } from "../data/resources";
+
+const WHO_ALL = "Pick where you are, or browse it all.";
+---
+
+<Layout
+  title="Resources: The Real Jesus Experience"
+  description="A growing library of historic Christian resources for believers new and seasoned. Pick your level, then explore each topic, Scripture first, with vetted resources marked free or paid."
+  ogTitle="Resources — The Real Jesus Experience"
+  ogDescription="Find where your faith is at, then dig in. Scripture first, then tried-and-true resources across apologetics, theology, suffering, and more."
+  ogUrl="https://therealjesusexperience.com/resources"
+  canonicalUrl="https://therealjesusexperience.com/resources"
+  activeRoute="resources"
+>
+  <!-- ── HERO + LEVEL CHOOSER (drenched dark) ── -->
+  <section class="res-hero" aria-labelledby="res-hero-h">
+    <div class="wide res-hero-inner">
+      <p class="label label-red">Resources</p>
+      <h1 id="res-hero-h" class="display res-hero-line">
+        Find where you are. Then dig in.
+      </h1>
+      <p class="res-hero-sub">
+        Wherever you are in the journey, there is a next step. Tell us roughly
+        where your faith is at, and we will point you to Scripture first, then to
+        tried-and-true resources from across historic Christianity.
+      </p>
+
+      <div class="res-chooser">
+        <span class="label label-on-dark-muted res-chooser-label">Where is your faith at?</span>
+        <div class="res-levels" role="group" aria-label="Choose your faith level">
+          <button class="res-level" type="button" data-level="all" data-who={WHO_ALL} aria-pressed="true">
+            Show all
+          </button>
+          {LEVELS.map((lvl) => (
+            <button class="res-level" type="button" data-level={lvl.id} data-who={lvl.who} aria-pressed="false">
+              {lvl.label}
+            </button>
+          ))}
+        </div>
+        <p class="res-level-who" data-res="who" aria-live="polite">{WHO_ALL}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STICKY CATEGORY JUMP NAV (ivory) ── -->
+  <nav class="res-jump" aria-label="Jump to a topic">
+    <div class="wide res-jump-inner">
+      {CATEGORIES.map((cat) => (
+        <a href={`#${cat.id}`}>{cat.title}</a>
+      ))}
+    </div>
+  </nav>
+
+  <!-- ── CATEGORY SECTIONS (alternating dark/ivory) ── -->
+  {CATEGORIES.map((cat, i) => {
+    const dark = i % 2 === 0;
+    return (
+      <section
+        id={cat.id}
+        class={`res-cat ${dark ? "res-cat--dark" : "res-cat--light"}`}
+        aria-labelledby={`${cat.id}-h`}
+      >
+        <div class="wide">
+          <div class="res-cat-head res-anim" data-res="anim">
+            <p class="label label-red">{cat.title}</p>
+            <h2 id={`${cat.id}-h`} class="headline res-cat-h">{cat.title}.</h2>
+            <p class="res-cat-blurb">{cat.blurb}</p>
+          </div>
+
+          <div class="res-split">
+            <!-- Scripture first, never filtered -->
+            <div class="res-scripture">
+              <span class="label label-red res-side-label">Scripture first</span>
+              <div class="res-scripture-list">
+                {cat.scripture.map((s) => (
+                  <a class="res-scripture-link" href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.ref}
+                  </a>
+                ))}
+              </div>
+              <p class="res-scripture-src">Opens in the NET Bible on bible.org.</p>
+            </div>
+
+            <!-- Resources, filtered by level -->
+            <div class="res-resources">
+              <span class="label label-red res-side-label">Resources</span>
+              <div class="res-list" data-res="list">
+                {cat.resources.map((r) => (
+                  <a
+                    class="res-item"
+                    data-levels={r.levels.join(" ")}
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span class="res-item-top">
+                      <span class="res-item-name">{r.name} <span class="arrow" aria-hidden="true">↗</span></span>
+                      <span class={`res-badge res-badge--${r.cost}`}>{r.cost === "free" ? "Free" : "Paid"}</span>
+                    </span>
+                    <span class="res-item-from">{r.from}</span>
+                    <span class="res-item-blurb">{r.blurb}</span>
+                  </a>
+                ))}
+                <p class="res-empty" data-res="empty" hidden>Nothing tagged for this level here yet. Try another level.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- ── CONTACT (drenched dark) ── -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wide contact-inner">
+      <p class="label label-red" id="contact-heading">Write to us</p>
+      <p class="prose" style="max-width: 38rem; color: var(--color-ink-on-dark);">
+        Know a resource that belongs here, or one that should not? Tell us. Chad
+        and the team audit this list, and we want it to stay trustworthy. We read
+        everything.
+      </p>
+      <a class="contact-email" href="mailto:hello@therealjesusexperience.com">
+        hello@therealjesusexperience.com
+      </a>
+      <ul class="contact-socials" aria-label="Social channels">
+        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // Resources page behavior.
+    // Filtering is functional (runs whenever JS is on, regardless of motion
+    // settings). Scroll reveals are motion and stay behind the .has-anim guard.
+    // With JS off, every resource is visible and nothing is hidden.
+    const root = document.documentElement;
+
+    // Keep the sticky jump nav docked just below the main site nav.
+    const siteNav = document.getElementById("site-nav");
+    const jump = document.querySelector<HTMLElement>(".res-jump");
+    const dockJump = () => {
+      if (siteNav && jump) jump.style.top = `${siteNav.offsetHeight}px`;
+    };
+    dockJump();
+    window.addEventListener("resize", dockJump);
+
+    // Level filter.
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".res-level"));
+    const items = Array.from(document.querySelectorAll<HTMLElement>(".res-item"));
+    const lists = Array.from(document.querySelectorAll<HTMLElement>('[data-res="list"]'));
+    const whoEl = document.querySelector<HTMLElement>('[data-res="who"]');
+
+    const apply = (level: string, who: string) => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.level === level)));
+      items.forEach((it) => {
+        const levels = (it.dataset.levels || "").split(" ");
+        it.hidden = level !== "all" && !levels.includes(level);
+      });
+      lists.forEach((list) => {
+        const empty = list.querySelector<HTMLElement>('[data-res="empty"]');
+        const anyVisible = Array.from(list.querySelectorAll<HTMLElement>(".res-item")).some((it) => !it.hidden);
+        if (empty) empty.hidden = anyVisible;
+      });
+      if (whoEl) whoEl.textContent = who;
+    };
+
+    buttons.forEach((b) => {
+      b.addEventListener("click", () => apply(b.dataset.level || "all", b.dataset.who || ""));
+    });
+
+    // Scroll reveals (motion only).
+    if (root.classList.contains("has-anim")) {
+      import("gsap").then(({ gsap }) => {
+        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+          gsap.registerPlugin(ScrollTrigger);
+          document.querySelectorAll<HTMLElement>('[data-res="anim"]').forEach((el) => {
+            ScrollTrigger.create({
+              trigger: el,
+              start: "top 88%",
+              once: true,
+              onEnter: () => {
+                gsap.to(el, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.7,
+                  ease: "expo.out",
+                  onComplete: () => (el.style.willChange = "auto"),
+                });
+              },
+            });
+          });
+        });
+      });
+    }
+  </script>
+</Layout>

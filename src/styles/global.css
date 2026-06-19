@@ -313,7 +313,10 @@ section.deep { padding-block: var(--space-10); }
 .nav-links .nav-cta {
   background: var(--color-red);
   color: var(--color-ink-on-dark);
-  padding: var(--space-2) var(--space-4);
+  font-size: var(--size-small);
+  letter-spacing: 0.12em;
+  padding: var(--space-3) var(--space-6);
+  margin-left: var(--space-2);
   transition: background var(--dur-fast) var(--ease);
 }
 .nav-links .nav-cta:hover {

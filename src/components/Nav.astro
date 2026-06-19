@@ -1,8 +1,6 @@
 ---
-import { SITE } from "../lib/site";
-
 interface Props {
-  activeRoute?: "home" | "episodes" | "about" | "wall" | "contact" | null;
+  activeRoute?: "home" | "episodes" | "about" | "wall" | "resources" | "contact" | null;
 }
 
 const { activeRoute = null } = Astro.props;
@@ -36,9 +34,10 @@ const { activeRoute = null } = Astro.props;
       <ul class="nav-links" id="nav-menu">
         <li><a href="/episodes" {...(activeRoute === "episodes" ? { "aria-current": "page" } : {})}>Episodes</a></li>
         <li><a href="/the-wall" {...(activeRoute === "wall" ? { "aria-current": "page" } : {})}>The Wall</a></li>
+        <li><a href="/resources" {...(activeRoute === "resources" ? { "aria-current": "page" } : {})}>Resources</a></li>
         <li><a href="/about" {...(activeRoute === "about" ? { "aria-current": "page" } : {})}>About</a></li>
         <li><a href={activeRoute === "home" ? "#contact" : "/#contact"} {...(activeRoute === "contact" ? { "aria-current": "page" } : {})}>Contact</a></li>
-        <li><a href={SITE.donateUrl} class="nav-cta">Support</a></li>
+        <li><a href="/give" class="nav-cta">Give</a></li>
       </ul>
     </nav>
   </div>
