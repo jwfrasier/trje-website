@@ -4,7 +4,8 @@ backend:
   name: github
   repo: jwfrasier/trje-website
   branch: main
-  base_url: https://therealjesusexperience.com
+  # TODO: switch to https://therealjesusexperience.com when DNS moves off Squarespace
+  base_url: https://trje-website.vercel.app
   auth_endpoint: api/auth
   commit_messages:
     create: "devotion: add {{slug}}"
