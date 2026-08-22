@@ -1,0 +1,71 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/devotions.css";
+import { getPublishedDevotions, formatDate, isoDate } from "../../lib/devotions";
+
+const devotions = await getPublishedDevotions();
+const [latest, ...rest] = devotions;
+---
+
+<Layout
+  title="Devotions: The Real Jesus Experience"
+  description="Short, Scripture-first devotions from Chad and the TRJE team. A few minutes with the real Jesus, written for people who are tired of religion and hungry for him."
+  ogTitle="Devotions — The Real Jesus Experience"
+  ogDescription="Short, Scripture-first devotions. A few minutes with the real Jesus."
+  ogUrl="https://therealjesusexperience.com/devotions"
+  canonicalUrl="https://therealjesusexperience.com/devotions"
+  activeRoute="devotions"
+>
+  <section class="dev-hero" aria-labelledby="dev-hero-h">
+    <div class="wide dev-hero-inner">
+      <p class="label label-red">Devotions</p>
+      <h1 id="dev-hero-h" class="display dev-hero-line">A few minutes with the real Jesus.</h1>
+      <p class="dev-hero-sub">
+        Short, Scripture-first readings from Chad and the team. No fluff, no
+        formulas. Open the Word, sit with it, and take one honest step.
+      </p>
+    </div>
+  </section>
+
+  <section class="dev-list-wrap" aria-labelledby="dev-list-h">
+    <div class="wide">
+      <h2 id="dev-list-h" class="visually-hidden">All devotions</h2>
+
+      {devotions.length === 0 ? (
+        <p class="dev-empty">The first devotion is on its way. Check back soon.</p>
+      ) : (
+        <>
+          <a class={`dev-feature${rest.length ? "" : " dev-feature--solo"}`} href={`/devotions/${latest.slug}`}>
+            <span class="label label-red">Latest</span>
+            <span class="dev-feature-title headline">{latest.data.title}</span>
+            <span class="dev-meta">
+              <time datetime={isoDate(latest.data.date)}>{formatDate(latest.data.date)}</time>
+              {latest.data.scripture && <span class="dev-meta-sep" aria-hidden="true">·</span>}
+              {latest.data.scripture && <span>{latest.data.scripture}</span>}
+            </span>
+            {latest.data.summary && <span class="dev-feature-summary">{latest.data.summary}</span>}
+            <span class="dev-read">Read it <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+
+          {rest.length > 0 && (
+            <ol class="dev-list" reversed>
+              {rest.map((d) => (
+                <li>
+                  <a class="dev-item" href={`/devotions/${d.slug}`}>
+                    <span class="dev-meta">
+                      <time datetime={isoDate(d.data.date)}>{formatDate(d.data.date)}</time>
+                      {d.data.scripture && <span class="dev-meta-sep" aria-hidden="true">·</span>}
+                      {d.data.scripture && <span>{d.data.scripture}</span>}
+                    </span>
+                    <span class="dev-item-title">{d.data.title} <span class="arrow" aria-hidden="true">→</span></span>
+                    {d.data.summary && <span class="dev-item-summary">{d.data.summary}</span>}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </>
+      )}
+    </div>
+  </section>
+</Layout>

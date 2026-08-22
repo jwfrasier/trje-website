@@ -1,0 +1,44 @@
+# Decap CMS config. The admin panel lives at /admin and commits straight to
+# GitHub; Vercel rebuilds the site on every commit (about a minute).
+backend:
+  name: github
+  repo: jwfrasier/trje-website
+  branch: main
+  base_url: https://therealjesusexperience.com
+  auth_endpoint: api/auth
+  commit_messages:
+    create: "devotion: add {{slug}}"
+    update: "devotion: update {{slug}}"
+    delete: "devotion: remove {{slug}}"
+    uploadMedia: "media: add {{path}}"
+    deleteMedia: "media: remove {{path}}"
+
+site_url: https://therealjesusexperience.com
+display_url: https://therealjesusexperience.com
+logo_url: https://therealjesusexperience.com/brand/trje-wordmark.png
+
+media_folder: public/devotions
+public_folder: /devotions
+
+slug:
+  encoding: unicode
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: devotions
+    label: Devotions
+    label_singular: Devotion
+    folder: src/content/devotions
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "devotions/{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: [date, title]
+    summary: "{{date | date('MMM D, YYYY')}} — {{title}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "MMMM D, YYYY", time_format: false, hint: "The date this devotion is for. Newest shows first." }
+      - { label: Scripture, name: scripture, widget: string, required: false, hint: "e.g. Matthew 11:28–30" }
+      - { label: Summary, name: summary, widget: text, required: false, hint: "One or two sentences. Shows on the list page and in link previews." }
+      - { label: Draft, name: draft, widget: boolean, default: false, hint: "On = saved but hidden from the site. Turn off to publish." }
+      - { label: Body, name: body, widget: markdown }

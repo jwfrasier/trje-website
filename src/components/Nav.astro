@@ -1,6 +1,6 @@
 ---
 interface Props {
-  activeRoute?: "home" | "episodes" | "about" | "wall" | "resources" | "contact" | null;
+  activeRoute?: "home" | "episodes" | "devotions" | "about" | "wall" | "resources" | "contact" | null;
 }
 
 const { activeRoute = null } = Astro.props;
@@ -33,6 +33,7 @@ const { activeRoute = null } = Astro.props;
 
       <ul class="nav-links" id="nav-menu">
         <li><a href="/episodes" {...(activeRoute === "episodes" ? { "aria-current": "page" } : {})}>Episodes</a></li>
+        <li><a href="/devotions" {...(activeRoute === "devotions" ? { "aria-current": "page" } : {})}>Devotions</a></li>
         <li><a href="/the-wall" {...(activeRoute === "wall" ? { "aria-current": "page" } : {})}>The Wall</a></li>
         <li><a href="/resources" {...(activeRoute === "resources" ? { "aria-current": "page" } : {})}>Resources</a></li>
         <li><a href="/about" {...(activeRoute === "about" ? { "aria-current": "page" } : {})}>About</a></li>

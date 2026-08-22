@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/devotions.css";
+import { getPublishedDevotions, formatDate, isoDate } from "../../lib/devotions";
+
+export async function getStaticPaths() {
+  const devotions = await getPublishedDevotions();
+  return devotions.map((entry, i) => ({
+    params: { slug: entry.slug },
+    props: { entry, newer: devotions[i - 1] ?? null, older: devotions[i + 1] ?? null },
+  }));
+}
+
+const { entry, newer, older } = Astro.props;
+const { Content } = await entry.render();
+const url = `https://therealjesusexperience.com/devotions/${entry.slug}`;
+const description =
+  entry.data.summary ??
+  `A short devotion from The Real Jesus Experience${entry.data.scripture ? ` on ${entry.data.scripture}` : ""}.`;
+---
+
+<Layout
+  title={`${entry.data.title}: Devotions — The Real Jesus Experience`}
+  description={description}
+  ogTitle={entry.data.title}
+  ogDescription={description}
+  ogUrl={url}
+  canonicalUrl={url}
+  activeRoute="devotions"
+>
+  <article class="dev-article">
+    <header class="dev-article-head">
+      <div class="wide">
+        <a class="dev-back" href="/devotions"><span class="arrow" aria-hidden="true">←</span> All devotions</a>
+        <p class="label label-red">Devotion</p>
+        <h1 class="headline dev-article-title">{entry.data.title}</h1>
+        <p class="dev-meta">
+          <time datetime={isoDate(entry.data.date)}>{formatDate(entry.data.date)}</time>
+          {entry.data.scripture && <span class="dev-meta-sep" aria-hidden="true">·</span>}
+          {entry.data.scripture && <span>{entry.data.scripture}</span>}
+        </p>
+      </div>
+    </header>
+
+    <div class="wide">
+      <div class="dev-body prose">
+        <Content />
+      </div>
+
+      {(older || newer) && (
+      <nav class="dev-pager" aria-label="More devotions">
+        {older ? (
+          <a class="dev-pager-link" href={`/devotions/${older.slug}`}>
+            <span class="label label-muted">Older</span>
+            <span class="dev-pager-title">{older.data.title}</span>
+          </a>
+        ) : <span />}
+        {newer ? (
+          <a class="dev-pager-link dev-pager-link--next" href={`/devotions/${newer.slug}`}>
+            <span class="label label-muted">Newer</span>
+            <span class="dev-pager-title">{newer.data.title}</span>
+          </a>
+        ) : <span />}
+      </nav>
+      )}
+    </div>
+  </article>
+</Layout>

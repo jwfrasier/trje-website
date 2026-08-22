@@ -1,0 +1,226 @@
+/* ─── DEVOTIONS — listing + single entry. Tokens only. ─── */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── HERO (drenched dark) ── */
+.dev-hero,
+.dev-article-head {
+  background: var(--color-ink-surface);
+  color: var(--color-ink-on-dark);
+  position: relative;
+  overflow: hidden;
+}
+.dev-hero { padding-block: var(--space-10) var(--space-9); }
+.dev-article-head { padding-block: var(--space-9) var(--space-8); }
+.dev-hero::before,
+.dev-article-head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 18%, oklch(58% 0.22 25 / 0.12), transparent 55%),
+    radial-gradient(circle at 8% 92%, oklch(58% 0.22 25 / 0.06), transparent 60%);
+  pointer-events: none;
+}
+.dev-hero .label-red,
+.dev-article-head .label-red { color: var(--color-red-text-on-dark); }
+.dev-hero-inner,
+.dev-article-head .wide { position: relative; }
+.dev-hero-line {
+  max-width: 16ch;
+  margin-block: var(--space-4) var(--space-5);
+  color: var(--color-ink-on-dark);
+}
+.dev-hero-sub {
+  max-width: 38rem;
+  color: var(--color-ink-on-dark-muted);
+  font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.65;
+}
+
+/* ── META LINE (shared) ── */
+.dev-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-muted);
+}
+.dev-hero .dev-meta,
+.dev-article-head .dev-meta { color: var(--color-ink-on-dark-muted); }
+.dev-meta-sep { opacity: 0.6; }
+
+/* ── LISTING (ivory) ── */
+.dev-list-wrap {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding-block: var(--space-9) var(--space-10);
+}
+.dev-empty {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  color: var(--color-ink-muted);
+}
+
+.dev-feature {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 44rem;
+  padding-bottom: var(--space-8);
+  margin-bottom: var(--space-8);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  text-decoration: none;
+  color: inherit;
+}
+.dev-feature-title {
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease);
+}
+.dev-feature:hover .dev-feature-title { color: var(--color-red-text); }
+.dev-feature-summary {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--lead-body);
+  color: var(--color-ink-muted);
+  max-width: var(--measure-prose);
+}
+.dev-read,
+.dev-back {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-red-text);
+}
+.dev-read .arrow,
+.dev-item-title .arrow,
+.dev-back .arrow { display: inline-block; transition: transform var(--dur-fast) var(--ease); }
+.dev-feature:hover .dev-read .arrow,
+.dev-item:hover .dev-item-title .arrow { transform: translateX(3px); }
+.dev-back:hover .arrow { transform: translateX(-3px); }
+
+.dev-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 44rem;
+}
+.dev-list li + li { border-top: var(--rule-hair) solid var(--color-rule); }
+.dev-item {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  text-decoration: none;
+  color: inherit;
+}
+.dev-item-title {
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  line-height: var(--lead-title);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease);
+}
+.dev-item:hover .dev-item-title { color: var(--color-red-text); }
+.dev-item-summary {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  line-height: var(--lead-body);
+  color: var(--color-ink-muted);
+  max-width: var(--measure-prose);
+}
+.dev-feature:focus-visible,
+.dev-item:focus-visible,
+.dev-back:focus-visible,
+.dev-pager-link:focus-visible {
+  outline: 2px solid var(--color-red-text);
+  outline-offset: 4px;
+}
+
+/* ── ARTICLE ── */
+.dev-article {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+.dev-back {
+  display: inline-block;
+  margin-bottom: var(--space-6);
+  color: var(--color-red-text-on-dark);
+  text-decoration: none;
+}
+.dev-article-title {
+  max-width: 18ch;
+  margin-block: var(--space-4);
+  color: var(--color-ink-on-dark);
+}
+.dev-body {
+  margin-inline: auto;
+  max-width: 38rem;
+  padding-block: var(--space-8) var(--space-7);
+  font-size: clamp(1.0625rem, 0.98rem + 0.3vw, 1.1875rem);
+  line-height: 1.7;
+}
+.dev-body > * + * { margin-top: var(--space-5); }
+.dev-body h2,
+.dev-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  line-height: var(--lead-title);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-top: var(--space-7);
+}
+.dev-body blockquote {
+  margin-inline: 0;
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--color-red);
+  color: var(--color-ink-muted);
+  font-style: italic;
+}
+.dev-body a { color: var(--color-red-text); }
+.dev-body ul,
+.dev-body ol { padding-left: var(--space-5); }
+.dev-body li + li { margin-top: var(--space-2); }
+.dev-body img { max-width: 100%; height: auto; }
+
+.dev-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  max-width: 38rem;
+  margin-inline: auto;
+  padding-block: var(--space-6) var(--space-10);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.dev-pager-link {
+  display: grid;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+  max-width: 48%;
+}
+.dev-pager-link--next { text-align: right; }
+.dev-pager-title {
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  line-height: var(--lead-title);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: color var(--dur-fast) var(--ease);
+}
+.dev-pager-link:hover .dev-pager-title { color: var(--color-red-text); }
+.dev-feature--solo { border-bottom: 0; margin-bottom: 0; }

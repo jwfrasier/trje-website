@@ -39,3 +39,8 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
   - `src/styles/global.css:11` (GT America TODO)
   - `src/styles/global.css:20` (Druk Condensed TODO)
 - **Wordmark SVG.** Currently `public/brand/trje-wordmark.png` (1500x288 raster). An SVG version would render crisper at every viewport.
+
+## Devotions admin
+
+- **GitHub OAuth for /admin.** Create the OAuth app, set `OAUTH_GITHUB_CLIENT_ID` / `OAUTH_GITHUB_CLIENT_SECRET` in Vercel, add Chad as a repo collaborator. Until this is done `/admin` login fails. Steps in `docs/devotions-admin.md`.
+- **Sample devotion.** `src/content/devotions/2026-08-21-come-to-me.md` is placeholder copy. Chad should replace or delete it from `/admin` before launch.
