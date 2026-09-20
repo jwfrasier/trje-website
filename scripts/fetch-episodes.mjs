@@ -2,7 +2,7 @@
 // No API key needed. Output: src/data/episodes.json.
 // Re-run on a schedule (cron, GitHub Action) to refresh before each build.
 
-import { writeFile, mkdir, access } from "node:fs/promises";
+import { readFile, writeFile, mkdir, access } from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -73,6 +73,18 @@ async function main() {
   const xml = await fetchRss(channelId);
   const episodes = parseRss(xml);
   console.log(`Parsed ${episodes.length} entries from RSS`);
+
+  // Skip the write when nothing changed, so the scheduled job does not commit
+  // (and redeploy) a timestamp-only diff every day.
+  try {
+    const prev = JSON.parse(await readFile(outPath, "utf8"));
+    if (JSON.stringify(prev.episodes) === JSON.stringify(episodes)) {
+      console.log("Episodes unchanged; leaving episodes.json as is.");
+      return;
+    }
+  } catch {
+    // No readable prior file; fall through and write a fresh one.
+  }
 
   const data = {
     handle: HANDLE,
