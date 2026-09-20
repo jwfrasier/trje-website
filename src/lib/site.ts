@@ -3,7 +3,7 @@ export const SITE = {
   ein: "33-1323004",
   contactEmail: "hello@therealjesusexperience.com",
   // External giving processor. The on-site /give page hands off here.
-  // Swap this single value to the Pushpay giving URL when it is ready.
-  donateUrl: "https://www.therealjesusexperience.com/donate",
+  // Tithe.ly giving form. Swap this single value if the processor changes.
+  donateUrl: "https://give.tithe.ly/?formId=907ad6fb-aa3a-4962-81da-c2ee1446485a",
   youtubeHandle: "therealjesusexperience",
 };

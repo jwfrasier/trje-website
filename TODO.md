@@ -18,9 +18,6 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
 
 ## Configuration
 
-- **Donate URL.** Currently points at `https://www.therealjesusexperience.com/donate`, which is a path on this same site that does not exist. Real donate flow needs an external processor (Stripe, Donorbox, Givebutter, etc.) or a real route built here.
-  - `src/lib/site.ts:5` (canonical value)
-  - Consumed in: `src/components/Nav.astro:39`, `src/components/Footer.astro:15`, `src/pages/index.astro:357`, `src/pages/about.astro:165`
 - **Contact email.** `hello@therealjesusexperience.com` is plausible but unverified. Confirm the mailbox routes to a human before launch.
   - `src/lib/site.ts:4`
 - **Established year.** Hard-coded as `2024`. Verify this is the correct nonprofit incorporation year, not the channel start year, and not the year content first dropped.
