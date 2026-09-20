@@ -32,13 +32,13 @@ const { activeRoute = null } = Astro.props;
       </button>
 
       <ul class="nav-links" id="nav-menu">
-        <li><a href="/episodes" {...(activeRoute === "episodes" ? { "aria-current": "page" } : {})}>Episodes</a></li>
-        <li><a href="/devotions" {...(activeRoute === "devotions" ? { "aria-current": "page" } : {})}>Devotions</a></li>
+        <li><a href="/resources" {...(activeRoute === "resources" ? { "aria-current": "page" } : {})}>Start Here</a></li>
+        <li><a href="/devotions" {...(activeRoute === "devotions" ? { "aria-current": "page" } : {})}>Questions</a></li>
         <li><a href="/the-wall" {...(activeRoute === "wall" ? { "aria-current": "page" } : {})}>The Wall</a></li>
-        <li><a href="/resources" {...(activeRoute === "resources" ? { "aria-current": "page" } : {})}>Resources</a></li>
         <li><a href="/about" {...(activeRoute === "about" ? { "aria-current": "page" } : {})}>About</a></li>
+        <li><a href="/episodes" {...(activeRoute === "episodes" ? { "aria-current": "page" } : {})}>Episodes</a></li>
         <li><a href={activeRoute === "home" ? "#contact" : "/#contact"} {...(activeRoute === "contact" ? { "aria-current": "page" } : {})}>Contact</a></li>
-        <li><a href="/give" class="nav-cta">Give</a></li>
+        <li><a href="/give" class="nav-cta">Help Share the Stories</a></li>
       </ul>
     </nav>
   </div>

@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import "../styles/anim-home-extras.css";
 import episodesData from "../data/episodes.json";
+import PortraitWaveform from "../components/PortraitWaveform.astro";
 import { SITE } from "../lib/site";
 
 const youtubeChannelUrl = episodesData.channelUrl;
@@ -25,15 +26,21 @@ function thumb(id, quality = "hqdefault") {
 const HOSTS = [
   {
     name: "Chad Beck",
-    role: "Host",
+    role: "Founder, Host",
     photo: "/team/chad.webp",
-    bio: "Host and receiver of the TRJE mission: leading believers, new and seasoned, to greater spiritual growth by putting the God-given testimony of believers on display.",
+    bio: "Founder and host of The Real Jesus Experience podcast and nonprofit.",
   },
   {
-    name: "Chilo Bustillo",
-    role: "Co-host, Board Member",
-    photo: "/team/chilo.webp",
-    bio: "Co-host of the We Are Second podcast and TRJE board member. Brings wisdom and encouragement, keeping the ministry focused on the mission.",
+    name: "Derek Prins",
+    role: "Contributor",
+    photo: "/team/derek.webp",
+    bio: "A recurring guest and contributor to the podcast, Derek is a deep well of spiritual connection, a constant encourager, and is a trusted counsellor of this ministry.",
+  },
+  {
+    name: "Steven Cooley",
+    role: "Sound Engineer",
+    photo: "",
+    bio: "Once a guest and now the podcast's sound engineer, Steven lives out what it means to surrender to Jesus and follow Him day by day, trusting God with every step.",
   },
 ];
 
@@ -58,10 +65,10 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
 ---
 
 <Layout
-  title="The Real Jesus Experience: Conversations for the long road of faith"
-  description="A 501(c)(3) nonprofit ministry and podcast. Honest, unhurried conversations for new and seasoned believers who have hit the wall."
+  title="The Real Jesus Experience: Real People. Real Conversations. Real Faith."
+  description="A 501(c)(3) nonprofit ministry and podcast. Testimony from believers who went all in on God, told through honest, unhurried conversations."
   ogTitle="The Real Jesus Experience"
-  ogDescription="Conversations for the long road of faith. A podcast for new and seasoned believers who have hit the wall."
+  ogDescription="Real people. Real conversations. Real faith. Testimony from believers who went all in on God."
   ogUrl="https://therealjesusexperience.com/"
   canonicalUrl="https://therealjesusexperience.com/"
   activeRoute="home"
@@ -83,15 +90,14 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
         class="display hero-tagline hero-anim hero-anim-up"
         data-hero="tagline"
       >
-        Conversations for the long road of faith.
+        Real People. Real Conversations. Real Faith.
       </h1>
       <p
         class="prose hero-anim hero-anim-up"
         data-hero="prose"
         style="max-width: 36rem; color: var(--color-ink-on-dark);"
       >
-        A podcast for new and seasoned believers who have hit the wall.
-        Honest, unhurried, and all about Jesus.
+        Testimony from believers who went all in on God.
       </p>
 
       <div class="hero-meta hero-anim hero-anim-up" data-hero="meta">
@@ -121,26 +127,36 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
       </div>
       <div class="mission-prose">
         <p>
-          The Real Jesus Experience is a 501(c)(3) nonprofit ministry and podcast.
-          We make honest, unhurried conversations about the Christian life: what
-          it asks of us, what we lose along the way, and what we find when we keep
-          walking.
+          The Real Jesus Experience is a nonprofit ministry and podcast for
+          people interested in what it means to follow Jesus.
         </p>
         <p>
-          The podcast is for people who have hit <em class="term">the wall</em>.
-          New believers looking for their footing. Longtime believers who have run
-          out of the language they started with. Anyone who has noticed that easy
-          answers stop working somewhere around year seven.
+          Through honest, unhurried conversations, we explore how faith takes
+          root in a person's life, and what happened along the way that caused
+          their faith to grow.
         </p>
         <p>
-          We do not perform certainty. We do not market faith. We sit with real
-          questions, in a real studio, and we record what comes up. Some episodes
-          are arguments. Some are confessions. Some are quiet.
+          If you're already feeling intimidated, that's ok. We've all felt that
+          way before. Think of it this way: you're just listening to someone
+          telling a story. That's it.
         </p>
         <p>
-          If anything we make is useful to you, we are glad. You can listen on
-          every platform we know how to reach. You can write to us. And, if you
-          want to, you can help keep the mission going.
+          And, if you're a brand-new Christian, don't worry, we've got you!
+        </p>
+        <p>
+          If you've been a Christian for years, but always felt too intimidated
+          to read the Bible, we've got you too!
+        </p>
+        <p>
+          No matter what phase of Christianity you're in, we're here for it.
+        </p>
+        <p>
+          You are welcome here, with your questions, your doubts, your story,
+          and whatever brought you to Jesus.
+        </p>
+        <p>
+          Listen wherever you get your podcasts, and feel free to write to us.
+          We'd love to hear from you.
         </p>
       </div>
     </div>
@@ -152,7 +168,7 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
       <div class="hosts-head">
         <p class="label label-red" id="hosts-heading">The team</p>
         <h2 class="headline" style="max-width: 22ch;">
-          The voices in the studio.
+          The people behind the ministry.
         </h2>
         <a
           href="/about#team"
@@ -168,11 +184,11 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
           <article class="host">
             {host.photo ? (
               <div class="host-portrait host-portrait-photo">
-                <img src={host.photo} alt={`${host.name}, host of The Real Jesus Experience`} loading="lazy" width="1000" height="1000" />
+                <img src={host.photo} alt={`${host.name}, The Real Jesus Experience`} loading="lazy" width="1000" height="1000" />
               </div>
             ) : (
-              <div class="host-portrait" aria-hidden="true">
-                <span class="label">Portrait forthcoming</span>
+              <div class="host-portrait portrait-wave">
+                <PortraitWaveform />
               </div>
             )}
             <div>

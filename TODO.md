@@ -4,12 +4,10 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
 
 ## Content
 
-### Steven Cooley reinstatement
-- [ ] Receive Steven Cooley's portrait photo (place at `public/team/steven.webp`)
-- [ ] Receive Steven Cooley's bio (60–120 words, voice-matched to Chad's and Chilo's bios)
-- [ ] Re-add Steven to the `HOSTS` array in `src/pages/index.astro` with `photo: "/team/steven.webp"` and the real bio
-- [ ] Re-add Steven to the `TEAM` array in `src/pages/about.astro` with full bio
-- [ ] Verify the team grid renders cleanly at 3 hosts (currently constrained to 2 — revert any 2-column overrides if applied)
+### Team portraits
+- [x] Derek Prins's portrait: using his Houston Northwest Church staff photo (`public/team/derek.webp`) until Chad sends his own
+- [ ] Receive Steven Cooley's portrait (place at `public/team/steven.webp`)
+- [ ] Set Steven's `photo` in the `HOSTS` array (`src/pages/index.astro`) and `TEAM` array (`src/pages/about.astro`); until then he renders the "Portrait forthcoming" placeholder
 
 - **Spotify URL.** Empty string; renders the "Coming soon" pending state.
   - `src/pages/index.astro:48`

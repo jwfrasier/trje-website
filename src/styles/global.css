@@ -296,6 +296,7 @@ section.deep { padding-block: var(--space-10); }
   position: relative;
   padding-block: var(--space-1);
   font-weight: 600;
+  white-space: nowrap;
   transition: color var(--dur-fast) var(--ease);
 }
 .nav-links a:hover { color: var(--color-red-text-on-dark); }
@@ -310,18 +311,18 @@ section.deep { padding-block: var(--space-10); }
   border-radius: 50%;
   transform: translateY(-50%);
 }
+/* Giving link: deliberately quiet. Outlined, same scale as its siblings. */
 .nav-links .nav-cta {
-  background: var(--color-red);
+  border: var(--rule-hair) solid var(--color-rule-on-dark);
   color: var(--color-ink-on-dark);
-  font-size: var(--size-small);
-  letter-spacing: 0.12em;
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-2) var(--space-4);
   margin-left: var(--space-2);
-  transition: background var(--dur-fast) var(--ease);
+  white-space: nowrap;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 .nav-links .nav-cta:hover {
-  background: var(--color-red-deep);
-  color: var(--color-ink-on-dark);
+  border-color: var(--color-red-text-on-dark);
+  color: var(--color-red-text-on-dark);
 }
 .nav-toggle {
   display: none;
@@ -451,13 +452,11 @@ section.deep { padding-block: var(--space-10); }
 }
 @media (min-width: 1080px) {
   .hosts-inner {
-    /* Temporary: 2 columns while Steven Cooley is removed from HOSTS pending
-       portrait + bio. Revert to `repeat(3, 1fr)` once the third host returns. */
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-7);
   }
 }
-.host { display: grid; gap: var(--space-5); }
+.host { display: grid; gap: var(--space-5); align-content: start; }
 .host-portrait {
   aspect-ratio: 4 / 5;
   background:
@@ -483,6 +482,32 @@ section.deep { padding-block: var(--space-10); }
   background: transparent;
 }
 .host-portrait .label { color: var(--color-red-text-on-dark); position: relative; z-index: 1; }
+
+/* Waveform stand-in (no photo yet): intentional artwork, not a missing image.
+   Shared by .host-portrait (home) and .team-portrait (about). */
+.host-portrait.portrait-wave,
+.team-portrait.portrait-wave {
+  background:
+    radial-gradient(circle at 50% 46%, oklch(58% 0.22 25 / 0.16), transparent 62%),
+    var(--color-ink-deep);
+  overflow: hidden;
+}
+.host-portrait.portrait-wave { aspect-ratio: 1 / 1; }
+.host-portrait.portrait-wave::after,
+.team-portrait.portrait-wave::after {
+  width: 14px;
+  height: 14px;
+  background: var(--color-red);
+  border: none;
+}
+.portrait-wave-art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-inline: 7%;
+}
+.portrait-wave-art svg { width: 100%; height: auto; fill: var(--color-red); }
 
 /* Real-photo variant: 1:1, edge-to-edge image, sacred-red corner marker overlaid. */
 .host-portrait-photo {
@@ -1372,11 +1397,9 @@ section.deep { padding-block: var(--space-10); }
   }
 }
 @media (min-width: 1080px) {
-  /* Temporary: 2 columns while Steven Cooley is removed from TEAM pending
-     portrait + bio. Revert to `repeat(3, 1fr)` once the third member returns. */
-  .about-team-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-team-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.team-member { display: grid; gap: var(--space-5); }
+.team-member { display: grid; gap: var(--space-5); align-content: start; }
 .team-portrait {
   aspect-ratio: 4 / 5;
   background:
@@ -1576,7 +1599,7 @@ section.deep { padding-block: var(--space-10); }
 }
 
 /* Mobile nav: ensure 44px tap targets on the Menu toggle and sheet links. */
-@media (max-width: 720px) {
+@media (max-width: 1100px) {
   .nav-toggle {
     min-height: 44px;
     min-width: 44px;
@@ -1592,7 +1615,9 @@ section.deep { padding-block: var(--space-10); }
 }
 
 /* ─── MOBILE NAV ─── */
-@media (max-width: 720px) {
+/* Breakpoint sits at 1100px: seven items incl. "Help Share the Stories"
+   do not fit on one line below that. Keep in sync with Layout.astro. */
+@media (max-width: 1100px) {
   .nav-toggle { display: inline-flex; }
   .nav-links {
     position: fixed;
@@ -1617,9 +1642,9 @@ section.deep { padding-block: var(--space-10); }
     padding-block: var(--space-2);
   }
   .nav-links .nav-cta {
-    background: var(--color-red);
     padding: var(--space-3) var(--space-5);
     font-size: 1.5rem;
+    margin-left: 0;
     margin-top: var(--space-4);
   }
   .nav-links a[aria-current="page"]::before { display: none; }

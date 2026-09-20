@@ -1,6 +1,6 @@
-/* ─── RESOURCES — level-filtered topic library. Tokens only; surface flip. ─── */
+/* ─── START HERE (/resources) — foundational Q&A. Tokens only; surface flip. ─── */
 
-/* ── HERO + LEVEL CHOOSER (drenched dark) ── */
+/* ── HERO (drenched dark) ── */
 .res-hero {
   background: var(--color-ink-surface);
   color: var(--color-ink-on-dark);
@@ -28,50 +28,6 @@
   color: var(--color-ink-on-dark-muted);
   font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
   line-height: 1.65;
-}
-
-/* Level chooser: segmented row of buttons. */
-.res-chooser {
-  margin-top: var(--space-7);
-}
-.res-chooser-label {
-  display: block;
-  margin-bottom: var(--space-4);
-}
-.res-levels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-.res-level {
-  appearance: none;
-  background: transparent;
-  border: var(--rule-hair) solid var(--color-rule-on-dark);
-  color: var(--color-ink-on-dark);
-  font-family: var(--font-body);
-  font-size: var(--size-small);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: var(--space-3) var(--space-5);
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease),
-    background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
-}
-.res-level:hover { border-color: var(--color-red-text-on-dark); }
-.res-level[aria-pressed="true"] {
-  background: var(--color-red);
-  border-color: var(--color-red);
-  color: var(--color-ink-on-dark);
-}
-.res-level:focus-visible {
-  outline: 2px solid var(--color-red-text-on-dark);
-  outline-offset: 2px;
-}
-.res-level-who {
-  margin-top: var(--space-4);
-  min-height: 1.4em;
-  color: var(--color-ink-on-dark-muted);
-  font-size: var(--size-small);
 }
 
 /* ── STICKY CATEGORY NAV (ivory) ── */
@@ -110,142 +66,109 @@
 .res-cat--light { background: var(--color-surface); color: var(--color-ink); }
 .res-cat--dark { background: var(--color-ink-surface); color: var(--color-ink-on-dark); }
 
-.res-cat-head {
-  max-width: 42rem;
-  margin-bottom: var(--space-7);
-}
-.res-cat-h { margin: var(--space-3) 0 var(--space-3); }
-.res-cat-blurb {
-  line-height: 1.6;
-  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
-}
-.res-cat--light .res-cat-blurb { color: var(--color-ink-muted); }
-.res-cat--dark .res-cat-blurb { color: var(--color-ink-on-dark-muted); }
-
-/* Two sides: scripture first, then resources. */
+/* Two sides: topic title, then the reading column. */
 .res-split {
   display: grid;
-  grid-template-columns: minmax(0, 18rem) 1fr;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 44rem);
   gap: clamp(var(--space-6), 6vw, var(--space-9));
   align-items: start;
 }
+.res-cat-h { margin: var(--space-3) 0 0; }
 
-/* Scripture side. */
-.res-scripture { align-self: start; }
-.res-side-label { display: block; margin-bottom: var(--space-4); }
-.res-scripture-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+/* Running copy. */
+.res-copy {
+  line-height: 1.7;
+  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
 }
-.res-scripture-link {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem);
-  line-height: 1.15;
-  letter-spacing: -0.005em;
-  text-transform: uppercase;
-  padding-block: var(--space-1);
-  transition: color var(--dur-fast) var(--ease);
-}
-.res-cat--light .res-scripture-link { color: var(--color-ink); }
-.res-cat--dark .res-scripture-link { color: var(--color-ink-on-dark); }
-.res-scripture-link:hover { color: var(--color-red-text); }
-.res-cat--dark .res-scripture-link:hover { color: var(--color-red-text-on-dark); }
-.res-scripture-src {
-  margin-top: var(--space-4);
-  font-size: var(--size-small);
-}
-.res-cat--light .res-scripture-src { color: var(--color-ink-muted); }
-.res-cat--dark .res-scripture-src { color: var(--color-ink-on-dark-muted); }
-
-/* Resource side: editorial rows, hairline divided, no cards. */
-.res-list { display: grid; }
-.res-item {
+.res-copy > * + * { margin-top: var(--space-4); }
+.res-copy ul {
+  padding-left: 1.25em;
   display: grid;
   gap: var(--space-2);
-  padding-block: var(--space-5);
-  border-top: var(--rule-hair) solid var(--color-rule);
 }
-.res-cat--dark .res-item { border-top-color: var(--color-rule-on-dark); }
-.res-list .res-item:last-child { border-bottom: var(--rule-hair) solid var(--color-rule); }
-.res-cat--dark .res-list .res-item:last-child { border-bottom-color: var(--color-rule-on-dark); }
+.res-copy li::marker { color: var(--color-red-text); }
+.res-cat--dark .res-copy li::marker { color: var(--color-red-text-on-dark); }
+.res-cat--light .res-copy { color: var(--color-ink-muted); }
+.res-cat--dark .res-copy { color: var(--color-ink-on-dark-muted); }
+.res-cat--light .res-intro { color: var(--color-ink); }
+.res-cat--dark .res-intro { color: var(--color-ink-on-dark); }
 
-.res-item-top {
+.res-items { margin-top: var(--space-7); }
+.res-side-label { display: block; margin-bottom: var(--space-4); }
+.res-outro { margin-top: var(--space-7); }
+
+/* Question rows: hairline divided, no cards. Native <details>. */
+.res-q { border-top: var(--rule-hair) solid var(--color-rule); }
+.res-q:last-child { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.res-cat--dark .res-q,
+.res-cat--dark .res-q:last-child { border-color: var(--color-rule-on-dark); }
+.res-q summary {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+  cursor: pointer;
+  list-style: none;
 }
-.res-item-name {
+.res-q summary::-webkit-details-marker { display: none; }
+.res-q summary:focus-visible {
+  outline: 2px solid var(--color-red-text);
+  outline-offset: 2px;
+}
+.res-cat--dark .res-q summary:focus-visible { outline-color: var(--color-red-text-on-dark); }
+.res-q-text {
+  margin: 0;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.35;
   letter-spacing: 0.01em;
   transition: color var(--dur-fast) var(--ease);
 }
-.res-cat--light .res-item-name { color: var(--color-ink); }
-.res-cat--dark .res-item-name { color: var(--color-ink-on-dark); }
-.res-item:hover .res-item-name { color: var(--color-red-text); }
-.res-cat--dark .res-item:hover .res-item-name { color: var(--color-red-text-on-dark); }
-.res-item-from {
-  font-size: var(--size-label);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.res-cat--light .res-item-from { color: var(--color-ink-muted); }
-.res-cat--dark .res-item-from { color: var(--color-ink-on-dark-muted); }
-.res-item-blurb {
-  line-height: 1.55;
-  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
-}
-.res-cat--light .res-item-blurb { color: var(--color-ink-muted); }
-.res-cat--dark .res-item-blurb { color: var(--color-ink-on-dark-muted); }
-.res-item .arrow { color: var(--color-red-text); }
-.res-cat--dark .res-item .arrow { color: var(--color-red-text-on-dark); }
+.res-cat--light .res-q-text { color: var(--color-ink); }
+.res-cat--dark .res-q-text { color: var(--color-ink-on-dark); }
+.res-q summary:hover .res-q-text { color: var(--color-red-text); }
+.res-cat--dark .res-q summary:hover .res-q-text { color: var(--color-red-text-on-dark); }
 
-/* Free / Paid badge. */
-.res-badge {
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 0.15em 0.55em;
-  border: var(--rule-hair) solid currentColor;
+/* Plus that becomes a minus when open. */
+.res-q-mark {
+  flex: none;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  color: var(--color-red-text);
 }
-.res-badge--free { color: var(--color-red-text); }
-.res-cat--dark .res-badge--free { color: var(--color-red-text-on-dark); }
-.res-badge--paid {
-  color: var(--color-ink-muted);
+.res-cat--dark .res-q-mark { color: var(--color-red-text-on-dark); }
+.res-q-mark::before,
+.res-q-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  margin-top: -1px;
+  background: currentColor;
+  transition: transform var(--dur-fast) var(--ease);
 }
-.res-cat--dark .res-badge--paid { color: var(--color-ink-on-dark-muted); }
+.res-q-mark::after { transform: rotate(90deg); }
+.res-q[open] .res-q-mark::after { transform: rotate(0deg); }
+.res-q-body { padding-bottom: var(--space-6); }
 
-/* Filter state: hidden rows when a level is selected. */
-.res-item[hidden] { display: none; }
-.res-empty {
-  padding-block: var(--space-5);
-  font-size: var(--size-small);
-  font-style: italic;
-}
-.res-cat--light .res-empty { color: var(--color-ink-muted); }
-.res-cat--dark .res-empty { color: var(--color-ink-on-dark-muted); }
+/* Always-open sub-topics (the Trinity). */
+.res-open + .res-open { margin-top: var(--space-7); }
+.res-open .res-q-text { margin-bottom: var(--space-3); }
 
 /* ── Responsive ── */
-@media (max-width: 760px) {
+@media (max-width: 860px) {
   .res-split {
     grid-template-columns: 1fr;
-    gap: var(--space-7);
-  }
-  .res-scripture-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-5);
+    gap: var(--space-6);
   }
 }
 
 @media (max-width: 600px) {
   .res-hero { padding-block: var(--space-9) var(--space-7); }
   .res-hero-line { max-width: none; }
-  .res-levels { gap: var(--space-2); }
-  .res-level { padding: var(--space-2) var(--space-4); }
 }

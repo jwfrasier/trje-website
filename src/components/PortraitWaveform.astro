@@ -1,0 +1,36 @@
+---
+// Stand-in portrait for team members without a photo: an audio waveform in
+// sacred red. Reads as intentional artwork rather than a missing image.
+// Bars are generated deterministically so every build renders the same shape.
+interface Props {
+  caption?: string;
+}
+const { caption = "Behind the board" } = Astro.props;
+
+const BARS = 41;
+const bars = Array.from({ length: BARS }, (_, i) => {
+  const t = i / (BARS - 1);
+  const envelope = Math.sin(Math.PI * t) ** 0.8; // quiet edges, loud middle
+  const ripple = 0.55 + 0.45 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.61));
+  return Math.max(0.06, envelope * ripple);
+});
+const W = 400;
+const H = 300;
+const step = W / BARS;
+---
+
+<div class="portrait-wave-art" aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet">
+    {bars.map((b, i) => (
+      <rect
+        x={i * step + step * 0.25}
+        y={(H - b * H) / 2}
+        width={step * 0.5}
+        height={b * H}
+        rx={step * 0.25}
+        opacity={0.35 + 0.65 * b}
+      />
+    ))}
+  </svg>
+</div>
+<span class="label">{caption}</span>

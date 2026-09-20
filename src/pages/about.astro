@@ -1,20 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/anim-about.css";
+import PortraitWaveform from "../components/PortraitWaveform.astro";
 import { SITE } from "../lib/site";
 
 const TEAM = [
   {
     name: "Chad Beck",
-    role: "Host",
+    role: "Founder, Host",
     photo: "/team/chad.webp",
-    bio: "Host and receiver of The Real Jesus Experience mission, which is to lead believers, new and seasoned, to greater spiritual growth, not through anything he would do or say, but by putting the God-given testimony of believers on display to encourage others and give glory to God.",
+    bio: "Founder and host of The Real Jesus Experience podcast and nonprofit.",
   },
   {
-    name: "Chilo Bustillo",
-    role: "Co-host, Board Member",
-    photo: "/team/chilo.webp",
-    bio: "Co-host of the We Are Second podcast and a TRJE board member. Chilo provides invaluable wisdom and encouragement, keeping the ministry focused on the mission and submitting all things to the Father.",
+    name: "Derek Prins",
+    role: "Contributor",
+    photo: "/team/derek.webp",
+    bio: "A recurring guest and contributor to the podcast, Derek is a deep well of spiritual connection, a constant encourager, and is a trusted counsellor of this ministry.",
+  },
+  {
+    name: "Steven Cooley",
+    role: "Sound Engineer",
+    photo: "",
+    bio: "Once a guest and now the podcast's sound engineer, Steven lives out what it means to surrender to Jesus and follow Him day by day, trusting God with every step.",
   },
 ];
 ---
@@ -60,7 +67,7 @@ const TEAM = [
             new and beautiful life with Christ.
           </p>
           <p>
-            When we are having a real Jesus experience, faith is no longer believing
+            When we are living the real Jesus experience, faith is no longer believing
             what is not seen, but knowing the undeniable truth of what you have
             lived through.
           </p>
@@ -101,7 +108,7 @@ const TEAM = [
       <div class="about-team-head">
         <p class="label label-red" id="team-heading">Meet the team</p>
         <h2 class="display about-team-h">
-          The voices in the studio.
+          The people behind the ministry.
         </h2>
       </div>
 
@@ -113,8 +120,8 @@ const TEAM = [
                 <img src={member.photo} alt={`${member.name}, TRJE`} loading="lazy" width="1000" height="1000" />
               </div>
             ) : (
-              <div class="team-portrait" aria-hidden="true">
-                <span class="label">Portrait forthcoming</span>
+              <div class="team-portrait portrait-wave">
+                <PortraitWaveform />
               </div>
             )}
             <div>
@@ -157,7 +164,7 @@ const TEAM = [
           </div>
         </dl>
         <a href="/give" class="btn">
-          Support the work <span class="arrow" aria-hidden="true">→</span>
+          Help us keep these conversations going <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
