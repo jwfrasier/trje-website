@@ -4,7 +4,9 @@ backend:
   name: github
   repo: jwfrasier/trje-website
   branch: main
-  # TODO: switch to https://therealjesusexperience.com when DNS moves off Squarespace
+  # The OAuth popup runs on the Vercel domain (the GitHub OAuth app's callback
+  # points there) and posts the token back to /admin on any domain, so this
+  # stays on vercel.app even with the custom domain live.
   base_url: https://trje-website.vercel.app
   auth_endpoint: api/auth
   commit_messages:

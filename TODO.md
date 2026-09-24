@@ -43,5 +43,5 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
 ## Devotions admin
 
 - **GitHub OAuth for /admin.** Done (env vars set in Vercel). Chad still needs a GitHub account added as a repo collaborator with Write access.
-- **Domain moved to Vercel (2026-09-24).** Squarespace DNS now has `A @ 76.76.21.21` and `CNAME www cname.vercel-dns.com`; Outlook email records untouched. Remaining: change the GitHub OAuth app callback URL to `https://therealjesusexperience.com/api/callback`, then set `base_url` in `public/admin/config.yml` to `https://therealjesusexperience.com`.
+- [x] **Domain moved to Vercel (2026-09-24).** Squarespace DNS now has `A @ 76.76.21.21` and `CNAME www cname.vercel-dns.com`; Outlook email records untouched. Admin login keeps using the vercel.app OAuth popup (`base_url` in `public/admin/config.yml`), so the GitHub OAuth app needs no change.
 - **Sample devotion.** `src/content/devotions/2026-08-21-come-to-me.md` is placeholder copy. Chad should replace or delete it from `/admin` before launch.

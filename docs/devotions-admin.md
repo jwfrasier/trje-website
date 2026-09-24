@@ -41,8 +41,10 @@ Open `/admin`, click **Login with GitHub**, authorize. You should see the
 Devotions list with the sample entry.
 
 ### If the domain changes
-Update `base_url` in `public/admin/config.yml` and the callback URL in the
-GitHub OAuth app. Nothing else references the domain.
+Nothing to do. The login popup runs on `trje-website.vercel.app` (that is
+`base_url` in `public/admin/config.yml` and the GitHub OAuth app's callback),
+and it hands the token back to `/admin` on whatever domain opened it. Only if
+the Vercel project is renamed do both of those need updating.
 
 ---
 
