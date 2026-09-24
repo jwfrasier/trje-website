@@ -1,0 +1,389 @@
+---
+import Layout from "../layouts/Layout.astro";
+import episodesData from "../data/episodes.json";
+import { SITE } from "../lib/site";
+
+// Pre-launch teaser. While SITE.comingSoon is true the homepage rewrites here.
+// The signature moment: a brick wall that breaks open in the middle, with the
+// countdown to the reveal at Beyond the Wall '26 showing through the gap.
+
+const latest = episodesData.episodes.find((e) => !/\#shorts\b/i.test(e.title || ""));
+const latestUrl = latest ? `https://www.youtube.com/watch?v=${latest.id}` : episodesData.channelUrl;
+
+// Running-bond wall. Odd rows carry one extra brick and shift half a brick left.
+const ROWS = 14;
+const COLS = 9;
+const rows = Array.from({ length: ROWS }, (_, r) => (r % 2 ? COLS + 1 : COLS));
+
+const UNITS = [
+  { key: "days", label: "Days" },
+  { key: "hours", label: "Hours" },
+  { key: "minutes", label: "Minutes" },
+  { key: "seconds", label: "Seconds" },
+];
+
+const SOCIALS = [
+  { name: "YouTube", url: "https://www.youtube.com/@TheRealJesusExperience" },
+  { name: "Instagram", url: "https://www.instagram.com/the_real_jesus_experience" },
+  { name: "Facebook", url: "https://www.facebook.com/TheRealJesusExperience" },
+  { name: "TikTok", url: "https://www.tiktok.com/@the.real.jesus.exp" },
+  { name: "Spotify", url: "https://open.spotify.com/show/3JuwyI6paw9T4o0ePzKVzj" },
+  { name: "Apple Podcasts", url: "https://podcasts.apple.com/us/podcast/the-real-jesus-experience/id1752479121" },
+];
+---
+
+<Layout
+  title="The Real Jesus Experience: A new site, October 2"
+  description="The new home of The Real Jesus Experience opens October 2, 2026, revealed live at Beyond the Wall ’26."
+  ogTitle="The Real Jesus Experience: October 2"
+  ogDescription="The wall comes down October 2. A new home for real people, real conversations, and real faith."
+  ogUrl="https://therealjesusexperience.com/"
+  canonicalUrl="https://therealjesusexperience.com/"
+  bare
+>
+  <section class="cs" aria-labelledby="cs-h">
+    <div class="cs-glow" aria-hidden="true"></div>
+
+    <div class="cs-wall" aria-hidden="true">
+      {rows.map((count, r) => (
+        <div class:list={["cs-row", { "cs-row-offset": r % 2 }]} style={`--count:${count}`}>
+          {Array.from({ length: count }, () => <span class="cs-brick"></span>)}
+        </div>
+      ))}
+    </div>
+
+    <div class="cs-core">
+      <img
+        class="cs-wordmark cs-in"
+        src="/brand/trje-wordmark.png"
+        width="1500"
+        height="288"
+        alt="The Real Jesus Experience"
+      />
+
+      <h1 id="cs-h" class="cs-h cs-in">The wall comes down October 2.</h1>
+
+      <p class="cs-sub cs-in">
+        A new home for real people, real conversations, and real faith, revealed
+        live at Beyond the&nbsp;Wall&nbsp;’26.
+      </p>
+
+      <div class="cs-count cs-in" data-reveal={SITE.revealAt} role="timer" aria-live="off">
+        {UNITS.map((u) => (
+          <div class="cs-unit">
+            <span class="cs-num" data-unit={u.key}>--</span>
+            <span class="cs-unit-label">{u.label}</span>
+          </div>
+        ))}
+      </div>
+      <p class="cs-arrived" hidden>It's tonight. See you beyond the wall.</p>
+
+      <div class="cs-actions cs-in">
+        <a href={SITE.eventUrl} class="btn" target="_blank" rel="noopener">
+          Get tickets to Beyond the Wall
+        </a>
+        <a href={latestUrl} class="btn-ghost-dark" target="_blank" rel="noopener">
+          Watch the latest episode
+        </a>
+      </div>
+
+      <p class="cs-links cs-in">
+        <a href={SITE.donateUrl} target="_blank" rel="noopener">Give to the mission</a>
+        {SOCIALS.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>
+        ))}
+        <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cs {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: var(--space-7) var(--space-4);
+    background: var(--color-ink-deep);
+    color: var(--color-ink-on-dark);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Light behind the wall: it only reads once bricks fall out of the way. */
+  .cs-glow {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 42% 38% at 50% 50%, oklch(58% 0.22 25 / 0.55), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 50% 50%, oklch(48% 0.2 25 / 0.25), transparent 75%);
+  }
+
+  .cs-wall {
+    position: absolute;
+    inset: -2%;
+    z-index: -1;
+    display: grid;
+    grid-template-rows: repeat(14, 1fr);
+  }
+  .cs-row {
+    display: grid;
+    grid-template-columns: repeat(var(--count), 1fr);
+  }
+  /* The extra brick on offset rows hangs half off each edge. */
+  .cs-row-offset {
+    margin-inline: calc(-50% / 9);
+  }
+  .cs-brick {
+    margin: 2px;
+    border-radius: 1px;
+    background:
+      linear-gradient(170deg, oklch(24% 0.014 30), oklch(17% 0.012 30));
+    box-shadow: inset 0 1px 0 oklch(30% 0.014 30 / 0.6);
+  }
+  /* Bricks knocked out behind the content (set by script, or by nothing:
+     the wall is dim enough that text stays legible over it). */
+  .cs-brick[data-loose="gone"] { visibility: hidden; }
+
+  .cs-core {
+    width: min(100%, 64rem);
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-4);
+  }
+  .cs-core > * { margin: 0; }
+
+  .cs-wordmark {
+    width: min(70vw, 20rem);
+    height: auto;
+    /* The wordmark PNG sits on black; screen drops the box over the glow. */
+    mix-blend-mode: screen;
+  }
+
+  .cs-h {
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: clamp(2.75rem, 1rem + 6vw, 6.25rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .cs-sub {
+    max-width: 34rem;
+    font-size: var(--size-title);
+    line-height: var(--lead-title);
+    color: var(--color-ink-on-dark);
+  }
+
+  .cs-count {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+    width: min(100%, 36rem);
+    margin-top: var(--space-2);
+  }
+  .cs-unit {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-2) var(--space-3);
+    background: oklch(10% 0.01 30 / 0.72);
+    border: 1px solid var(--color-rule-on-dark);
+    backdrop-filter: blur(4px);
+  }
+  .cs-num {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 1.2rem + 3.5vw, 3.75rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-on-dark);
+  }
+  .cs-unit-label {
+    font-size: var(--size-small);
+    color: var(--color-ink-on-dark-muted);
+  }
+  .cs-arrived {
+    font-family: var(--font-display);
+    font-size: var(--size-headline);
+    line-height: var(--lead-headline);
+    text-transform: uppercase;
+    color: var(--color-red-bright);
+  }
+
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  .cs-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-3);
+    max-width: 40rem;
+    font-size: var(--size-small);
+  }
+  .cs-links a {
+    color: var(--color-ink-on-dark-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .cs-links a:hover,
+  .cs-links a:focus-visible {
+    color: var(--color-ink-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 36rem) {
+    /* Stretch the wall past the edges so bricks keep a brick's proportions. */
+    .cs-wall { inset: -2% -60%; }
+    .cs-count { gap: var(--space-2); }
+    .cs-unit { padding-inline: var(--space-1); }
+    .cs-unit-label { font-size: var(--size-label); }
+  }
+
+  /* Entrance: content starts hidden only when motion is allowed and JS ran. */
+  :global(.has-anim) .cs-in {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  // ── Countdown ──
+  const count = document.querySelector<HTMLElement>(".cs-count");
+  const arrived = document.querySelector<HTMLElement>(".cs-arrived");
+  if (count) {
+    const target = new Date(count.dataset.reveal ?? "").getTime();
+    const cells = Object.fromEntries(
+      [...count.querySelectorAll<HTMLElement>("[data-unit]")].map((el) => [el.dataset.unit, el]),
+    );
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const tick = () => {
+      const ms = Math.max(0, target - Date.now());
+      const s = Math.floor(ms / 1000);
+      cells.days.textContent = pad(Math.floor(s / 86400));
+      cells.hours.textContent = pad(Math.floor((s % 86400) / 3600));
+      cells.minutes.textContent = pad(Math.floor((s % 3600) / 60));
+      cells.seconds.textContent = pad(s % 60);
+      if (ms === 0) {
+        count.hidden = true;
+        if (arrived) arrived.hidden = false;
+        return false;
+      }
+      return true;
+    };
+    if (tick()) {
+      const id = setInterval(() => { if (!tick()) clearInterval(id); }, 1000);
+    }
+  }
+
+  // ── The wall breaks open behind the content ──
+  const core = document.querySelector<HTMLElement>(".cs-core");
+  const bricks = [...document.querySelectorAll<HTMLElement>(".cs-brick")];
+
+  // Stable per-brick noise, so the broken edge is ragged but the same shape
+  // on every resize.
+  const noise = (i: number) => {
+    const x = Math.sin(i * 12.9898) * 43758.5453;
+    return x - Math.floor(x) - 0.5;
+  };
+
+  // A ragged oval hole centered on the content, leaving wall around the edges.
+  function looseBricks() {
+    if (!core) return [];
+    const box = core.getBoundingClientRect();
+    const cx = box.left + box.width / 2;
+    const cy = box.top + box.height / 2;
+    const narrow = window.innerWidth < 640;
+    const rx = narrow ? window.innerWidth * 0.5 : Math.min(window.innerWidth * 0.36, 560);
+    const ry = Math.min(box.height * (narrow ? 0.52 : 0.62), window.innerHeight * 0.5);
+    return bricks.filter((b, i) => {
+      const r = b.getBoundingClientRect();
+      const dx = (r.left + r.width / 2 - cx) / rx;
+      const dy = (r.top + r.height / 2 - cy) / ry;
+      return dx * dx + dy * dy < 1 + noise(i) * 0.7;
+    });
+  }
+
+  function knockOutInstantly() {
+    bricks.forEach((b) => {
+      b.removeAttribute("data-loose");
+      gsap.set(b, { clearProps: "transform,opacity" });
+    });
+    looseBricks().forEach((b) => b.setAttribute("data-loose", "gone"));
+  }
+
+  const animate = document.documentElement.classList.contains("has-anim");
+  const loose = looseBricks();
+
+  if (!animate || !core) {
+    knockOutInstantly();
+  } else {
+    const box = core.getBoundingClientRect();
+    const cx = box.left + box.width / 2;
+    const cy = box.top + box.height / 2;
+    // Bricks nearest the center go first, so the break spreads outward.
+    const dist = (b: HTMLElement) => {
+      const r = b.getBoundingClientRect();
+      return Math.hypot(r.left + r.width / 2 - cx, r.top + r.height / 2 - cy);
+    };
+    loose.sort((a, b) => dist(a) - dist(b));
+    const maxDist = dist(loose[loose.length - 1] ?? bricks[0]) || 1;
+
+    gsap.set(".cs-glow", { opacity: 0 });
+
+    const tl = gsap.timeline({ delay: 0.35 });
+    // 1. The wall strains.
+    tl.to(loose, {
+      x: () => gsap.utils.random(-3, 3),
+      y: () => gsap.utils.random(-2, 2),
+      duration: 0.06,
+      repeat: 5,
+      yoyo: true,
+      ease: "none",
+    });
+    tl.to(".cs-glow", { opacity: 0.5, duration: 0.3, ease: "power1.out" }, "<");
+    // 2. It gives way from the center out; light floods through.
+    tl.to(
+      loose,
+      {
+        y: () => gsap.utils.random(260, 620),
+        x: () => gsap.utils.random(-80, 80),
+        rotation: () => gsap.utils.random(-50, 50),
+        opacity: 0,
+        duration: 1.05,
+        ease: "power2.in",
+        delay: (i, el) => (dist(el as HTMLElement) / maxDist) * 0.45,
+      },
+      ">",
+    );
+    tl.to(".cs-glow", { opacity: 1, duration: 1.1, ease: "power2.out" }, "<0.15");
+    // 3. The message steps through the gap.
+    tl.to(
+      ".cs-in",
+      { opacity: 1, y: 0, duration: 0.8, ease: "expo.out", stagger: 0.09 },
+      "<0.35",
+    );
+    tl.add(() => loose.forEach((b) => b.setAttribute("data-loose", "gone")));
+  }
+
+  // Keep the opening matched to the content if the viewport changes.
+  let resizeTimer: number | undefined;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(knockOutInstantly, 150);
+  });
+</script>

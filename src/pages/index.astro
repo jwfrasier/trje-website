@@ -5,6 +5,9 @@ import episodesData from "../data/episodes.json";
 import PortraitWaveform from "../components/PortraitWaveform.astro";
 import { SITE } from "../lib/site";
 
+// Pre-launch teaser owns the homepage until the reveal (see SITE.comingSoon).
+if (SITE.comingSoon) return Astro.rewrite("/coming-soon");
+
 const youtubeChannelUrl = episodesData.channelUrl;
 
 // Filter out Shorts; keep full episodes.
@@ -45,16 +48,16 @@ const HOSTS = [
 ];
 
 const PLATFORMS = [
-  { name: "YouTube",        url: "https://www.youtube.com/@therealjesusexperience" },
-  { name: "Spotify",        url: "" },
-  { name: "Apple Podcasts", url: "" },
-  { name: "Amazon Music",   url: "" },
-  { name: "Instagram",      url: "https://www.instagram.com/therealjesusexperience" },
-  { name: "Facebook",       url: "https://www.facebook.com/therealjesusexperience" },
-  { name: "TikTok",         url: "https://www.tiktok.com/@therealjesusexperience" },
-  { name: "Rumble",         url: "https://rumble.com/c/therealjesusexperience" },
-  { name: "Threads",        url: "https://www.threads.net/@therealjesusexperience" },
-  { name: "X",              url: "https://x.com/trjepodcast" },
+  { name: "YouTube",        url: "https://www.youtube.com/@TheRealJesusExperience" },
+  { name: "Spotify",        url: "https://open.spotify.com/show/3JuwyI6paw9T4o0ePzKVzj" },
+  { name: "Apple Podcasts", url: "https://podcasts.apple.com/us/podcast/the-real-jesus-experience/id1752479121" },
+  { name: "Instagram",      url: "https://www.instagram.com/the_real_jesus_experience" },
+  { name: "Facebook",       url: "https://www.facebook.com/TheRealJesusExperience" },
+  { name: "TikTok",         url: "https://www.tiktok.com/@the.real.jesus.exp" },
+  { name: "Rumble",         url: "https://rumble.com/c/c-6527259" },
+  { name: "Threads",        url: "https://www.threads.net/@the_real_jesus_experience" },
+  { name: "X",              url: "https://x.com/JesusXperience" },
+  { name: "LinkedIn",       url: "https://www.linkedin.com/company/the-real-jesus-experience-ministries/" },
 ];
 
 const hasEpisode = Boolean(latest?.id);
@@ -233,14 +236,29 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
       {hasEpisode ? (
         <>
           <div class="episode-frame" id="episode-frame">
-            <iframe
-              src={embedSrc}
-              title={`Watch: ${latest.title}`}
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
+            <!-- Thumbnail facade: the YouTube player only loads on click, so the
+                 thumbnail always shows even where embeds are blocked (content
+                 blockers, strict privacy modes), and the link still works. -->
+            <a
+              class="episode-facade"
+              href={watchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-embed={`${embedSrc}&autoplay=1`}
+              data-title={`Watch: ${latest.title}`}
+              aria-label={`Play: ${latest.title}`}
+            >
+              <img
+                src={thumb(latest.id, "maxresdefault")}
+                srcset={`${thumb(latest.id, "hqdefault")} 480w, ${thumb(latest.id, "sddefault")} 640w, ${thumb(latest.id, "maxresdefault")} 1280w`}
+                sizes="(min-width: 80rem) 72rem, 100vw"
+                alt=""
+                width="1280"
+                height="720"
+                decoding="async"
+              />
+              <span class="episode-play" aria-hidden="true"></span>
+            </a>
             <div class="episode-fallback">
               <a href={watchUrl} target="_blank" rel="noopener noreferrer">
                 Watch on YouTube <span class="arrow" aria-hidden="true">↗</span>
@@ -386,13 +404,31 @@ const watchUrl = hasEpisode ? `https://www.youtube.com/watch?v=${latest.id}` : "
         {SITE.contactEmail}
       </a>
       <ul class="contact-socials" aria-label="Social channels">
-        <li><a href="https://www.instagram.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="https://www.youtube.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-        <li><a href="https://www.facebook.com/therealjesusexperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-        <li><a href="https://www.tiktok.com/@therealjesusexperience" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+        <li><a href="https://www.instagram.com/the_real_jesus_experience" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@TheRealJesusExperience" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://www.facebook.com/TheRealJesusExperience" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@the.real.jesus.exp" target="_blank" rel="noopener noreferrer">TikTok</a></li>
       </ul>
     </div>
   </section>
+
+  <script>
+    // Latest-episode facade: swap the thumbnail for the real player on click.
+    // Without JS the facade is a plain link to the video on YouTube.
+    const facade = document.querySelector<HTMLAnchorElement>(".episode-facade");
+    facade?.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+      event.preventDefault();
+      const iframe = document.createElement("iframe");
+      iframe.src = facade.dataset.embed ?? "";
+      iframe.title = facade.dataset.title ?? "";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      facade.replaceWith(iframe);
+      iframe.focus();
+    });
+  </script>
 
   <script>
     // Hero entrance choreography. Single signature moment, ~900ms total.

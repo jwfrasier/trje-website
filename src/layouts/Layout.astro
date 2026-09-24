@@ -12,6 +12,9 @@ interface Props {
   ogImage?: string;
   canonicalUrl: string;
   activeRoute?: "home" | "episodes" | "devotions" | "about" | "wall" | "resources" | "contact" | null;
+  // Standalone pages (the pre-launch teaser) render without nav and footer.
+  bare?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -23,6 +26,8 @@ const {
   ogImage = "/brand/og-card.svg",
   canonicalUrl,
   activeRoute = null,
+  bare = false,
+  noindex = false,
 } = Astro.props;
 ---
 
@@ -41,6 +46,7 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={ogUrl} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -78,11 +84,11 @@ const {
   <body>
     <a href="#main" class="skip">Skip to content</a>
 
-    <Nav activeRoute={activeRoute} />
+    {!bare && <Nav activeRoute={activeRoute} />}
 
     <main id="main"><slot /></main>
 
-    <Footer />
+    {!bare && <Footer />}
 
     <script is:inline>
       (function () {
