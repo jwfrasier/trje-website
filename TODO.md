@@ -15,7 +15,7 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
 ## Content
 
 ### Team portraits
-- [x] Derek Prins's portrait: using his Houston Northwest Church staff photo (`public/team/derek.webp`) until Chad sends his own
+- [x] Derek Prins's portrait: his TRJE headshot (`public/team/derek.webp`)
 - [ ] Receive Steven Cooley's portrait (place at `public/team/steven.webp`)
 - [ ] Set Steven's `photo` in the `HOSTS` array (`src/pages/index.astro`) and `TEAM` array (`src/pages/about.astro`); until then he renders the "Portrait forthcoming" placeholder
 
