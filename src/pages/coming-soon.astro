@@ -79,9 +79,7 @@ const SOCIALS = [
       <p class="cs-arrived" hidden>It's tonight. See you beyond the wall.</p>
 
       <div class="cs-actions cs-in">
-        <a href={SITE.eventUrl} class="btn" target="_blank" rel="noopener">
-          Get tickets to Beyond the Wall
-        </a>
+        <span class="btn cs-sold">Beyond the Wall is sold out</span>
         <a href={latestUrl} class="btn-ghost-dark" target="_blank" rel="noopener">
           Watch the latest episode
         </a>
@@ -221,6 +219,15 @@ const SOCIALS = [
     justify-content: center;
     gap: var(--space-4);
     margin-top: var(--space-2);
+  }
+
+  /* Registration is closed: keep the button's shape, drop the call to action. */
+  .cs-sold,
+  .cs-sold:hover {
+    background: transparent;
+    color: var(--color-red-bright);
+    box-shadow: inset 0 0 0 1px var(--color-red-bright);
+    cursor: default;
   }
 
   .cs-links {
