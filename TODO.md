@@ -2,7 +2,7 @@
 
 ## Reveal night (Beyond the Wall '26, Oct 2)
 
-The homepage is a countdown teaser while `comingSoon: true` in `src/lib/site.ts`. Every other page and `/admin` stay reachable. To reveal:
+Revealed 2026-10-02 (`comingSoon: false`). The homepage was a countdown teaser while `comingSoon: true` in `src/lib/site.ts`. Every other page and `/admin` stay reachable. To reveal:
 
 1. Open https://github.com/jwfrasier/trje-website/edit/main/src/lib/site.ts
 2. Change `comingSoon: true` to `comingSoon: false`, commit to `main`.
@@ -16,8 +16,8 @@ Every placeholder still in the codebase. Resolve each before flipping DNS to pro
 
 ### Team portraits
 - [x] Derek Prins's portrait: his TRJE headshot (`public/team/derek.webp`)
-- [ ] Receive Steven Cooley's portrait (place at `public/team/steven.webp`)
-- [ ] Set Steven's `photo` in the `HOSTS` array (`src/pages/index.astro`) and `TEAM` array (`src/pages/about.astro`); until then he renders the "Portrait forthcoming" placeholder
+- [x] Steven Cooley's portrait (`public/team/steven.webp`)
+- [x] Steven's `photo` set in `HOSTS` (`src/pages/index.astro`) and `TEAM` (`src/pages/about.astro`)
 
 - [x] Social and podcast links: set from Chad's list (2026-09-24). Amazon Music dropped; LinkedIn added. X link (`@JesusXperience`) returned 404 to an automated check: confirm it opens.
 

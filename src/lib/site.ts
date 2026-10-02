@@ -8,7 +8,7 @@ export const SITE = {
   youtubeHandle: "therealjesusexperience",
   // Pre-launch: while true, the homepage serves the countdown teaser
   // (src/pages/coming-soon.astro). Flip to false to reveal the full site.
-  comingSoon: true,
+  comingSoon: false,
   // The reveal: Beyond the Wall '26. Central time.
   revealAt: "2026-10-02T18:30:00-05:00",
   eventUrl: "https://givebutter.com/support-spiritual-growth-for-new-believers-otoafk",
