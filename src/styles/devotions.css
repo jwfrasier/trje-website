@@ -71,6 +71,11 @@
   font-size: var(--size-body);
   color: var(--color-ink-muted);
 }
+.dev-ask {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+}
 
 .dev-feature {
   display: grid;

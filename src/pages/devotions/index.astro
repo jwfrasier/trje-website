@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/devotions.css";
 import { getPublishedDevotions, formatDate, isoDate } from "../../lib/devotions";
+import { SITE } from "../../lib/site";
 
 const devotions = await getPublishedDevotions();
 const [latest, ...rest] = devotions;
@@ -9,9 +10,9 @@ const [latest, ...rest] = devotions;
 
 <Layout
   title="Questions: The Real Jesus Experience"
-  description="Devotionals from Dr. Vernon Burger, featured guest on The Real Jesus Experience Podcast. Short, Scripture-first, and honest. No fluff, no formulas."
-  ogTitle="Questions — The Real Jesus Experience"
-  ogDescription="Devotionals from Dr. Vernon Burger. Short, Scripture-first, and honest."
+  description="Bring us your questions about faith, God, and the Bible. We're here for them, and we're happy to share our perspective."
+  ogTitle="Questions: The Real Jesus Experience"
+  ogDescription="Bring us your questions about faith, God, and the Bible. We're happy to share our perspective."
   ogUrl="https://therealjesusexperience.com/devotions"
   canonicalUrl="https://therealjesusexperience.com/devotions"
   activeRoute="devotions"
@@ -19,11 +20,11 @@ const [latest, ...rest] = devotions;
   <section class="dev-hero" aria-labelledby="dev-hero-h">
     <div class="wide dev-hero-inner">
       <p class="label label-red">Questions</p>
-      <h1 id="dev-hero-h" class="display dev-hero-line">A few minutes with the real Jesus.</h1>
+      <h1 id="dev-hero-h" class="display dev-hero-line">Bring us your questions.</h1>
       <p class="dev-hero-sub">
-        Devotionals from Dr. Vernon Burger, featured guest on The Real Jesus
-        Experience Podcast. Short, Scripture-first, and honest. No fluff, no
-        formulas. Open the Word, sit with it, and take one honest step.
+        Wrestling with something about faith, God, or the Bible? We're here
+        for your questions, and we're happy to share our perspective. No
+        question is too big, too small, or too honest.
       </p>
     </div>
   </section>
@@ -33,7 +34,12 @@ const [latest, ...rest] = devotions;
       <h2 id="dev-list-h" class="visually-hidden">All devotions</h2>
 
       {devotions.length === 0 ? (
-        <p class="dev-empty">The first devotion is on its way. Check back soon.</p>
+        <div class="dev-ask">
+          <p class="dev-empty">Send us what's on your mind. We read every message.</p>
+          <a class="btn" href={`mailto:${SITE.contactEmail}?subject=A question for TRJE`}>
+            Ask a question <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       ) : (
         <>
           <a class={`dev-feature${rest.length ? "" : " dev-feature--solo"}`} href={`/devotions/${latest.slug}`}>
