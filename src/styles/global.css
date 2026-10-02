@@ -363,12 +363,19 @@ section.deep { padding-block: var(--space-10); }
   pointer-events: none;
 }
 .hero-inner { position: relative; }
+/* Sized off the display type so the lockup spans the headline's longest line
+   (about 10.7em of Oswald at the 2-line break). The asset is cropped tight, so
+   its left edge is the lettering's left edge and it aligns with the headline. */
 .hero-wordmark {
   display: block;
-  width: clamp(280px, 64vw, 720px);
+  width: min(100%, calc(var(--size-display) * 10.7));
   height: auto;
   margin-bottom: var(--space-7);
   mix-blend-mode: lighten;
+}
+/* Below ~854px the headline wraps to three lines; its longest is ~6.9em. */
+@media (max-width: 854px) {
+  .hero-wordmark { width: min(100%, calc(var(--size-display) * 6.9)); }
 }
 .hero-tagline {
   max-width: 28ch;
