@@ -226,6 +226,7 @@
   line-height: 1.7;
   font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
 }
+.wall-invite-prose p + p { margin-top: var(--space-5); }
 .wall-invite-prose em.term {
   font-style: italic;
   color: var(--color-red-text-on-dark);
